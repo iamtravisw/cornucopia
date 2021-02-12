@@ -1,0 +1,20 @@
+<nav class="navbar fixed-bottom navbar-light bg-danger">
+    <ul class="navbar-nav ml-auto flex-row nav-fill w-100">
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <mat-icon class="icon">restaurant</mat-icon>
+            </a>
+        </li>
+        <!-- Will change depending on current page -->
+        <li class="nav-item">
+            <a class="nav-link" (click)="openBottomSheet()">
+                <mat-icon class="icon">add_circle</mat-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <mat-icon class="icon" matBadge="8" matBadgePosition="before" matBadgeColor="primary">person</mat-icon>
+            </a>
+        </li>
+    </ul>
+</nav>
