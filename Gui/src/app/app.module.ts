@@ -20,6 +20,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { AddContentComponent } from './add-content/add-content.component';
 import {MatListModule} from '@angular/material/list';
+import { WhatToEatComponent } from './what-to-eat/what-to-eat.component';
+import { WhatsHotComponent } from './whats-hot/whats-hot.component';
+import { FeedComponent } from './feed/feed.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import {MatListModule} from '@angular/material/list';
     PlanComponent,
     NavbarFooterComponent,
     ExploreComponent,
-    AddContentComponent
+    AddContentComponent,
+    WhatToEatComponent,
+    WhatsHotComponent,
+    FeedComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
