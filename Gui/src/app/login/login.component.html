@@ -1,0 +1,41 @@
+<div class="background">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Log In</mat-card-title>
+                        <mat-card-subtitle>Or <a routerLink="/register">register</a> if you need an account.
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="container">
+                            <mat-form-field class="w-100">
+                                <mat-label>Enter your email</mat-label>
+                                <input matInput placeholder="pat@example.com" required>
+                                <mat-error>Please enter a valid email address.</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-100">
+                                <mat-label>Create a password</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'">
+                                <button mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+
+                            <span><br><br></span>
+                            <span><a routerLink="/login">Forgot Password?</a></span>
+                            <button class="float-right" mat-raised-button color="primary">Log In</button>
+                            <span><br><br></span>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
+    </div>
+</div>

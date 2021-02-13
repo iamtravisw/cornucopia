@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,10 @@ import { WhatToEatComponent } from './what-to-eat/what-to-eat.component';
 import { WhatsHotComponent } from './whats-hot/whats-hot.component';
 import { FeedComponent } from './feed/feed.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MatInputModule } from '@angular/material/input';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,9 @@ import { ProfileComponent } from './profile/profile.component';
     WhatToEatComponent,
     WhatsHotComponent,
     FeedComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,11 @@ import { ProfileComponent } from './profile/profile.component';
     MatGridListModule,
     MatFormFieldModule,
     MatBottomSheetModule,
-    MatListModule
+    MatListModule,
+    MatInputModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
