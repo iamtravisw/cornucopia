@@ -1,6 +1,5 @@
 package com.iamtravisw.cornucopia.user;
 
-import com.iamtravisw.cornucopia.security.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -32,8 +31,8 @@ public class UserController {
         boolean passwordMatch = passwordEncoder.matches(password, storedUser.getPassword());
 
         if(passwordMatch){
-            String jwt = Authentication.createJWT("1", user.getUserName(), "Admin", 3600000);
-            return "Bearer "+jwt;
+
+            return "Bearer ";
         } else {
             System.out.println("Password is incorrect.");
             return null;
