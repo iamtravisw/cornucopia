@@ -28,6 +28,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +64,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatInputModule,
     MatStepperModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
