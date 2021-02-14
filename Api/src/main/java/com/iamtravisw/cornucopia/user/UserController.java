@@ -1,7 +1,7 @@
 package com.iamtravisw.cornucopia.user;
 
-import com.iamtravisw.cornucopia.security.JwtResponse;
 import com.iamtravisw.cornucopia.security.JwtTokenUtil;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,12 @@ public class UserController {
 
         if(passwordMatch){
             final String token = jwtTokenUtil.generateToken(user);
-            return ResponseEntity.ok(new JwtResponse(token));
+
+            JSONObject result = new JSONObject();
+            result.put("Bearer ", token);
+            result.put("userId", storedUser.getUserId());
+
+            return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect.");
         }

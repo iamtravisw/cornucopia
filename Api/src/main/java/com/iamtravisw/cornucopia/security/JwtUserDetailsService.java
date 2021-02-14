@@ -1,26 +1,29 @@
 package com.iamtravisw.cornucopia.security;
 
 import java.util.ArrayList;
-
-import org.springframework.security.core.userdetails.User;
+import com.iamtravisw.cornucopia.user.User;
+import com.iamtravisw.cornucopia.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Autowired
+    private UserRepository userRepository;
 
-        // Fix this later
-        if ("admin".equals(username)) {
-            return new User("admin", "admin",
-                    new ArrayList<>());
-        } else {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+
+        User user = userRepository.findByUsername(userName);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + userName);
         }
+
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
+                new ArrayList<>());
     }
 }
