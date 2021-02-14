@@ -38,11 +38,10 @@ public class UserController {
 
         if(passwordMatch){
             final String token = jwtTokenUtil.generateToken(user);
-
+            storedUser.setPassword(null);
             JSONObject result = new JSONObject();
             result.put("Bearer ", token);
-            result.put("userId", storedUser.getUserId());
-
+            result.put("User", storedUser);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect.");
