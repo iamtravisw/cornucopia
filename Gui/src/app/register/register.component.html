@@ -1,0 +1,89 @@
+<div class="background">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Register</mat-card-title>
+                        <mat-card-subtitle>Or <a routerLink="/login">log in</a> if you already have an account.</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                        <mat-horizontal-stepper #stepper>
+                            <mat-step [stepControl]="firstFormGroup" errorMessage="Review">
+                                <form [formGroup]="firstFormGroup">
+                                    <ng-template matStepLabel>Basic</ng-template>
+
+                                    <mat-form-field>
+                                        <mat-label>First Name</mat-label>
+                                        <input matInput placeholder="Aaron" formControlName="firstCtrl"
+                                            required>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-label>Last Name</mat-label>
+                                        <input matInput placeholder="Franklin" formControlName="firstCtrl"
+                                            required>
+                                    </mat-form-field>
+
+                                    
+                                    <mat-form-field>
+                                        <mat-label>Phone (Optional)</mat-label>
+                                        <input matInput placeholder="555-555-555" formControlName="firstCtrl">
+                                    </mat-form-field>
+
+                                    <div>
+                                        <button class="float-right" mat-raised-button color="primary" matStepperNext>Next</button>
+                                    </div>
+
+                                </form>
+                            </mat-step>
+
+                            <mat-step [stepControl]="secondFormGroup" errorMessage="Review">
+                                <form [formGroup]="secondFormGroup">
+                                    <ng-template matStepLabel>User</ng-template>
+
+                                    <mat-form-field  >
+                                        <mat-label>Username</mat-label>
+                                        <input matInput placeholder="Ie: FoodBlogger92"
+                                            required>
+                                    </mat-form-field>
+                                   
+                                    <mat-form-field  class="w-100">
+                                        <mat-label>Enter your email</mat-label>
+                                        <input matInput placeholder="pat@example.com" required>
+                                        <mat-error>Please enter a valid email address.</mat-error>
+                                    </mat-form-field>
+        
+                                    <mat-form-field  class="w-100">
+                                        <mat-label>Create a password</mat-label>
+                                        <input matInput [type]="hide ? 'password' : 'text'">
+                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+
+                                    <div>
+                                        <button class="float-left" mat-raised-button color="primary" matStepperPrevious>Back</button>
+                                        <button class="float-right" mat-raised-button color="primary" matStepperNext>Next</button>
+                                    </div>
+                                </form>
+                            </mat-step>
+
+                            <mat-step>
+                                <ng-template matStepLabel>Verify</ng-template>
+                                <p>How would you like to verify your account?</p>
+                                <div>
+                                    <button class="float-left" mat-raised-button color="primary" matStepperPrevious>Back</button>
+                                    <button disabled class="float-right" mat-raised-button color="primary" (click)="stepper.reset()">Complete</button>
+                                </div>
+                            </mat-step>
+                        </mat-horizontal-stepper>
+                    </mat-card-content>
+
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
