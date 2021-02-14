@@ -1,22 +1,19 @@
-import { Component } from '@angular/core';
-
-export type UserPosition = "start" | "end";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
   title = 'cornucopia';
 
-  
-nav_position: UserPosition =  'end';
-
+  show = false;
 constructor() { }
 
-onTogglePosition(position: string) {
-  this.nav_position = position === 'start' ? 'end' : 'start';
-  
+ngOnInit(): void {
+  if(localStorage.getItem('bearer') != null){
+      this.show = true;
+    }
   }
 }

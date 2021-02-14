@@ -30,7 +30,6 @@ import { MatInputModule } from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +43,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     FeedComponent,
     ProfileComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +66,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ReactiveFormsModule,
     MatButtonToggleModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

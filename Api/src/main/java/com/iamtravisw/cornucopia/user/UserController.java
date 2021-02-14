@@ -32,7 +32,7 @@ public class UserController {
     public ResponseEntity<?> login(@Validated @RequestBody User user) {
 
         String password = user.getPassword();
-        User storedUser = userRepository.findByEmailAddress(user.getEmail());
+        User storedUser = userRepository.findByUsername(user.getUserName());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         boolean passwordMatch = passwordEncoder.matches(password, storedUser.getPassword());
 

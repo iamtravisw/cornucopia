@@ -1,5 +1,12 @@
-<app-navbar></app-navbar>
-<br><br><br><br>
+
+<div *ngIf="show">
+    <app-navbar></app-navbar>
+    <br><br><br><br>
+</div>
+
 <router-outlet></router-outlet>
-<br><br><br><br>
-<app-navbar-footer></app-navbar-footer>
+
+<div *ngIf="show">
+    <br><br><br><br>
+    <app-navbar-footer></app-navbar-footer>
+</div>
