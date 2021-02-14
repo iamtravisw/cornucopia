@@ -1,10 +1,13 @@
 package com.iamtravisw.cornucopia.user;
 
+import com.iamtravisw.cornucopia.security.JwtResponse;
+import com.iamtravisw.cornucopia.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/user")
@@ -12,6 +15,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/register")
     public User saveUser(@Validated @RequestBody User user) {
@@ -23,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Validated @RequestBody User user) {
+    public ResponseEntity<?> login(@Validated @RequestBody User user) {
 
         String password = user.getPassword();
         User storedUser = userRepository.findByEmailAddress(user.getEmail());
@@ -31,17 +37,10 @@ public class UserController {
         boolean passwordMatch = passwordEncoder.matches(password, storedUser.getPassword());
 
         if(passwordMatch){
-
-            return "Bearer ";
+            final String token = jwtTokenUtil.generateToken(user);
+            return ResponseEntity.ok(new JwtResponse(token));
         } else {
-            System.out.println("Password is incorrect.");
-            return null;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect.");
         }
     }
-
-    @GetMapping("/{id}")
-    public Optional<User> findUserById(@PathVariable(value = "id") long id){
-        return userRepository.findById(id);
-    }
-
 }
