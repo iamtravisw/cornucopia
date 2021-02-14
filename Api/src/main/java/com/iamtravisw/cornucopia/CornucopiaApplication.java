@@ -9,4 +9,5 @@ public class CornucopiaApplication {
     public static void main(String[] args) {
         SpringApplication.run(CornucopiaApplication.class, args);
     }
+
 }

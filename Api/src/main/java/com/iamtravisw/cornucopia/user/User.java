@@ -1,16 +1,19 @@
-package com.iamtravisw.cornucopia.models;
+package com.iamtravisw.cornucopia.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Entity
+@Getter @Setter
 public class User {
 
     @Id
-    private int userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long userId;
 
     private String userName;
 
@@ -25,5 +28,7 @@ public class User {
     private Date lastLogin;
 
     private char premium;
+
+    private String password;
 
 }
