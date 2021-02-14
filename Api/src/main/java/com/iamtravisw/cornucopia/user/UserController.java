@@ -1,13 +1,10 @@
 package com.iamtravisw.cornucopia.user;
 
+import com.iamtravisw.cornucopia.security.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,14 +24,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@Validated @RequestBody User user) {
+    public String login(@Validated @RequestBody User user) {
+
         String password = user.getPassword();
         User storedUser = userRepository.findByEmailAddress(user.getEmail());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        boolean isPasswordMatch = passwordEncoder.matches(password, storedUser.getPassword());
-        if(isPasswordMatch){
-            System.out.println("Logging in...");
-            return user;
+        boolean passwordMatch = passwordEncoder.matches(password, storedUser.getPassword());
+
+        if(passwordMatch){
+            String jwt = Authentication.createJWT("1", user.getUserName(), "Admin", 3600000);
+            return "Bearer "+jwt;
         } else {
             System.out.println("Password is incorrect.");
             return null;
