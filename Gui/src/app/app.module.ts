@@ -30,7 +30,10 @@ import { MatInputModule } from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { AuthService } from './auth/auth.service';
-import { HttpClientModule } from "@angular/common/http"
+import { HttpClientModule } from "@angular/common/http";
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 @NgModule({
   declarations: [
@@ -67,7 +70,9 @@ import { HttpClientModule } from "@angular/common/http"
     FormsModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

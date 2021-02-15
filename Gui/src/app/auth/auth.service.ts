@@ -9,6 +9,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  loggedIn = false;
   readonly BaseUri = "http://localhost:8080";
 
   httpOptions = {

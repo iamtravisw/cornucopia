@@ -1,9 +1,10 @@
 <div class="background">
     <div class="overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12 my-auto">
+
+
                     <mat-card>
                         <mat-card-header>
                             <mat-card-title>Log In</mat-card-title>
@@ -16,12 +17,12 @@
                                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
                                 <mat-form-field class="w-100">
-                                    <mat-label>Enter your Username</mat-label>
-                                    <input formControlName="userName" matInput placeholder="Ie: BBQFiend92" required>
+                                    <mat-label>Username</mat-label>
+                                    <input formControlName="userName" matInput required>
                                 </mat-form-field>
 
                                 <mat-form-field class="w-100">
-                                    <mat-label>Create a password</mat-label>
+                                    <mat-label>Password</mat-label>
                                     <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
                                     <button mat-icon-button matSuffix (click)="hide = !hide"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -31,7 +32,7 @@
 
                                 <span><br><br></span>
                                 <span><a routerLink="/login">Forgot Password?</a></span>
-                                <button class="float-right" mat-raised-button color="primary">Log In</button>
+                                <button class="float-right" mat-raised-button color="primary" [disabled]="!loginForm.valid">Log In</button>
                                 <span><br><br></span>
                                 <br>
                                 <mat-error>{{errorMessage}}</mat-error>

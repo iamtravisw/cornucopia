@@ -1,5 +1,11 @@
-<app-navbar></app-navbar>
-<br><br><br><br>
+<ng-container *ngIf="authService.loggedIn">
+    <app-navbar></app-navbar>
+    <br><br><br><br>
+</ng-container> 
+
 <router-outlet></router-outlet>
-<br><br><br><br>
-<app-navbar-footer></app-navbar-footer>
+
+<ng-container *ngIf="authService.loggedIn">
+    <br><br><br><br>
+    <app-navbar-footer></app-navbar-footer>
+</ng-container> 

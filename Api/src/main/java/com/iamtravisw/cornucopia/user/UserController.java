@@ -20,18 +20,28 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/register")
-    public User saveUser(@Validated @RequestBody User user) {
+    public ResponseEntity<?>  saveUser(@Validated @RequestBody User user) {
         String password = user.getPassword();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         user.setPassword(hashedPassword);
-        // Need Error Catching
-        return userRepository.save(user);
+
+        // Is the Email or Username already in use?
+        User checkEmail = userRepository.findByEmailAddress(user.getEmail());
+        User checkUserName = userRepository.findByUsername(user.getUserName());
+
+       if(checkEmail != null){
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This email is already in use");
+       } else if(checkUserName != null) {
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This username is already in use");
+       } else {
+           userRepository.save(user);
+           return ResponseEntity.status(HttpStatus.OK).body(user);
+       }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Validated @RequestBody User user) {
-
         String password = user.getPassword();
         User storedUser = userRepository.findByUsername(user.getUserName());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -45,7 +55,7 @@ public class UserController {
             result.put("User", storedUser);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect");
         }
     }
 }
