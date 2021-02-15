@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor
 public class User {
 
     @Id
@@ -30,5 +30,7 @@ public class User {
     private char premium;
 
     private String password;
+
+    private String phone;
 
 }

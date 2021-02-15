@@ -13,24 +13,24 @@
 
                         <mat-card-content>
                             <mat-horizontal-stepper #stepper>
-                                <mat-step [stepControl]="firstFormGroup" errorMessage="Review">
-                                    <form [formGroup]="firstFormGroup">
+                                <mat-step [stepControl]="registerBasic" errorMessage="Review">
+                                    <form [formGroup]="registerBasic">
                                         <ng-template matStepLabel>Basic</ng-template>
 
                                         <mat-form-field>
                                             <mat-label>First Name</mat-label>
-                                            <input matInput placeholder="Aaron" formControlName="firstCtrl" required>
+                                            <input matInput placeholder="Aaron" formControlName="firstName" required>
                                         </mat-form-field>
 
                                         <mat-form-field>
                                             <mat-label>Last Name</mat-label>
-                                            <input matInput placeholder="Franklin" formControlName="firstCtrl" required>
+                                            <input matInput placeholder="Franklin" formControlName="lastName" required>
                                         </mat-form-field>
 
 
                                         <mat-form-field>
                                             <mat-label>Phone (Optional)</mat-label>
-                                            <input matInput placeholder="555-555-555" formControlName="firstCtrl">
+                                            <input matInput placeholder="555-555-555" formControlName="phone">
                                         </mat-form-field>
 
                                         <div>
@@ -41,24 +41,24 @@
                                     </form>
                                 </mat-step>
 
-                                <mat-step [stepControl]="secondFormGroup" errorMessage="Review">
-                                    <form [formGroup]="secondFormGroup">
+                                <mat-step [stepControl]="registerUser" errorMessage="Review">
+                                    <form [formGroup]="registerUser">
                                         <ng-template matStepLabel>User</ng-template>
 
                                         <mat-form-field>
                                             <mat-label>Username</mat-label>
-                                            <input matInput placeholder="Ie: FoodBlogger92" required>
+                                            <input matInput placeholder="Ie: FoodBlogger92" formControlName="userName" required>
                                         </mat-form-field>
 
                                         <mat-form-field class="w-100">
                                             <mat-label>Enter your email</mat-label>
-                                            <input matInput placeholder="pat@example.com" required>
+                                            <input matInput placeholder="pat@example.com" formControlName="email" required>
                                             <mat-error>Please enter a valid email address.</mat-error>
                                         </mat-form-field>
 
                                         <mat-form-field class="w-100">
                                             <mat-label>Create a password</mat-label>
-                                            <input matInput [type]="hide ? 'password' : 'text'">
+                                            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
                                             <button mat-icon-button matSuffix (click)="hide = !hide"
                                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -98,11 +98,12 @@
                                     <div>
                                         <button class="float-left" mat-raised-button color="primary"
                                             matStepperPrevious>Back</button>
-                                        <button disabled class="float-right" mat-raised-button color="primary"
-                                            (click)="stepper.reset()">Complete</button>
+                                        <button class="float-right" mat-raised-button color="primary"
+                                        [disabled]="!registerBasic.valid || !registerUser.valid" (click)="onSubmit()">Complete</button>
                                     </div>
                                 </mat-step>
                             </mat-horizontal-stepper>
+                            <mat-error>{{errorMessage}}</mat-error>
                         </mat-card-content>
 
                     </mat-card>

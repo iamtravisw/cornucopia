@@ -29,6 +29,8 @@ import { RegisterComponent } from './register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { AuthService } from './auth/auth.service';
+import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -64,9 +66,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    HttpClientModule
   ],
-  providers: [ ],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

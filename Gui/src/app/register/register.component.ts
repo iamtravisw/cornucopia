@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,31 +15,38 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 export class RegisterComponent implements OnInit {
 
   hide = true;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  registerBasic: FormGroup;
+  registerUser: FormGroup;
+  errorMessage = "";
 
-  constructor(private _formBuilder: FormBuilder) { 
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) { 
 
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: []
+    this.registerBasic = this.fb.group({
+      firstName :['', Validators.required],
+      lastName :['', Validators.required],
+      phone :[''],
     })
 
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: []
+    this.registerUser = this.fb.group({
+      userName :['', Validators.required],
+      email :['', Validators.required],
+      password :['', Validators.required],
     })
-
   }
 
+  onSubmit(){
+    this.authService.register(this.registerBasic, this.registerUser).subscribe(
+      (res:any) => {
+        console.log(res);
+        this.router.navigate(['/login']);
+      },
+      (err:any) => {
+        console.log(err);
+        this.errorMessage = err;
+    });
+  }
 
   ngOnInit(): void {
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
 
   }
 

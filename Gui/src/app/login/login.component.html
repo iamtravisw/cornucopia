@@ -12,15 +12,17 @@
                         </mat-card-header>
                         <mat-card-content>
                             <div class="container">
+
+                                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
                                 <mat-form-field class="w-100">
-                                    <mat-label>Enter your email</mat-label>
-                                    <input matInput placeholder="pat@example.com" required>
-                                    <mat-error>Please enter a valid email address.</mat-error>
+                                    <mat-label>Enter your Username</mat-label>
+                                    <input formControlName="userName" matInput placeholder="Ie: BBQFiend92" required>
                                 </mat-form-field>
 
                                 <mat-form-field class="w-100">
                                     <mat-label>Create a password</mat-label>
-                                    <input matInput [type]="hide ? 'password' : 'text'">
+                                    <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
                                     <button mat-icon-button matSuffix (click)="hide = !hide"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -31,6 +33,10 @@
                                 <span><a routerLink="/login">Forgot Password?</a></span>
                                 <button class="float-right" mat-raised-button color="primary">Log In</button>
                                 <span><br><br></span>
+                                <br>
+                                <mat-error>{{errorMessage}}</mat-error>
+
+                                </form>
 
                             </div>
                         </mat-card-content>

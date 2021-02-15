@@ -25,6 +25,7 @@ public class UserController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         user.setPassword(hashedPassword);
+        // Need Error Catching
         return userRepository.save(user);
     }
 
@@ -40,7 +41,7 @@ public class UserController {
             final String token = jwtTokenUtil.generateToken(user);
             storedUser.setPassword(null);
             JSONObject result = new JSONObject();
-            result.put("Bearer ", token);
+            result.put("Bearer", token);
             result.put("User", storedUser);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
