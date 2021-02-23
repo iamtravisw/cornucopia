@@ -1,8 +1,10 @@
 ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
     padding-left:5px!important;
     margin:0px!important;
+    background-color: rgb(255, 255, 255);
 }
 
+  
 .mat-card-image {
     max-height: 100%;
 }
@@ -10,4 +12,8 @@
 .mat-card-title {
     font-size: 18px;
     margin: 0;
+}
+
+.tabs {
+    margin-top: -3px;
 }

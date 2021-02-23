@@ -33,8 +33,8 @@ export class AuthService {
       lastName: registerBasic.value.lastName,
       phone: registerBasic.value.phone,
       userName: registerUser.value.userName,
-      email: registerUser.value.userName,
-      password: registerUser.value.userName,
+      email: registerUser.value.email,
+      password: registerUser.value.password,
       lastLogin: new Date(Date.now())
     };
     return this.http.post(this.BaseUri+'/api/user/register', user)

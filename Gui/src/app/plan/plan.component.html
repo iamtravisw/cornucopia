@@ -1,4 +1,4 @@
-<div class="w-90">
+<div class="tabs w-90">
   <mat-tab-group mat-stretch-tabs>
 
     <!-- Meals -->
@@ -6,26 +6,29 @@
       <ng-template mat-tab-label>
         Meals
       </ng-template>
-      <mat-card *ngFor="let meal of meals">
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
-              <img style="margin-top: 4px;" mat-card-image src="{{meal.imageUrl}}" alt="{{meal.imageCaption">
-            </div>
-            <div class="col-9">
-              <mat-card-title>
-                {{meal.title | slice:0:23}}<span *ngIf="meal.title.length > 23">...</span>
-              </mat-card-title>
-              <mat-card-content>
-                {{meal.content | slice:0:99}}<span *ngIf="meal.content.length > 100">...</span>
-              </mat-card-content>
-              <mat-card-subtitle style="margin-top: -15px;">
-                {{meal.details}}
-              </mat-card-subtitle>
+
+      <div class="container">
+        <mat-card *ngFor="let meal of meals" style="margin-top: 5px; margin-bottom: 5px;">
+          <div class="container">
+            <div class="row">
+              <div class="col-3">
+                <img style="margin-top: 4px;" mat-card-image src="{{meal.imageUrl}}" alt="{{meal.imageCaption">
+              </div>
+              <div class="col-9">
+                <mat-card-title>
+                  {{meal.title | slice:0:20}}<span *ngIf="meal.title.length > 20">...</span>
+                </mat-card-title>
+                <mat-card-content>
+                  {{meal.content | slice:0:99}}<span *ngIf="meal.content.length > 99">...</span>
+                </mat-card-content>
+                <mat-card-subtitle style="margin-top: -15px;">
+                  {{meal.details}}
+                </mat-card-subtitle>
+              </div>
             </div>
           </div>
-        </div>
-      </mat-card>
+        </mat-card>
+      </div>
     </mat-tab>
 
     <!-- Foods -->
