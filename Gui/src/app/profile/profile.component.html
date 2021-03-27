@@ -1,41 +1,33 @@
-
-    <div class="main container">
-        <div class="row">
-            <div class="col-8 mx-auto">
-                <img src="../../assets/Travis.jpg" class="rounded-circle img-fluid border border-dark" alt="Travis Woodward">
-            </div>
+<div class="main container">
+    <div class="row">
+        <div class="text-center col-8 mx-auto">
+            <img src="https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-12.jpg" class="rounded-circle img-fluid border border-dark" alt="Travis Woodward">
         </div>
-        <br>
-        <div class="row">
-            <div class="col-12 text-center">
-                <mat-card>
-                    <h1 class="display-4">Travis Woodward</h1>
-                    <smalL>
-                        <p class="lead">"Just a pitmaster with a passion for BBQ."</p>
-                    </smalL>
-                    <div>
-                        <button mat-raised-button color="primary">Follow</button>
-                        &nbsp;
-                        <button mat-raised-button color="accent">Message</button>
-                        &nbsp;
-                        <button mat-raised-button color="warn">Report</button>
-                    </div>
-                    <br>
-                    <small>Member since: January 15th, 2021.</small>
-                </mat-card>
-            </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12 text-center">
+            <mat-card>
+                    <h1 class="display-4">{{userName}}<mat-icon class="edit-save" aria-label="Edit name">mode_edit</mat-icon></h1>
+                <smalL>
+                    <p class="lead">"{{tagLine}}"<mat-icon class="edit-save" aria-label="Edit name">mode_edit</mat-icon></p>
+                </smalL>
+                <div>
+                    <button mat-raised-button color="primary" disabled>Follow</button>
+                    &nbsp;
+                    <button mat-raised-button color="accent" disabled>Message</button>
+                    &nbsp;
+                    <button mat-raised-button color="warn" disabled>Report</button>
+                </div>
+                <br>
+                <small>Member since: {{joinDate | date: 'MM/dd/yyyy'}}.</small>
+            </mat-card>
         </div>
-
-        <div class="content">
-
-                <mat-card>
-    
-                    Stuff here
-    
-                </mat-card>
-
-        </div>
-
     </div>
 
-  
+    <div class="content">
+            <mat-card>
+                {{biography}}<mat-icon class="edit-save" aria-label="Edit name">mode_edit</mat-icon>
+        </mat-card>
+    </div>
+</div>
