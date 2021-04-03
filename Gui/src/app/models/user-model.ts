@@ -9,6 +9,8 @@ export class User {
     lastLogin?: Date;
     premium?: string;
     password?: string;
+    tagLine?: string;
+    biography?: string;
 
     constructor() {
         this.userId = 0;
@@ -18,8 +20,10 @@ export class User {
         this.phone = "";
         this.email = "";
         this.userImageUrl = "";
-        this.lastLogin = new Date(2015, 5, 21);
+        this.lastLogin = new Date("05-21-2015"),
         this.premium = "";
         this.password = "";
+        this.tagLine = "";
+        this.biography = "";
     }
 }

@@ -1,33 +1,101 @@
 <div class="main container">
     <div class="row">
         <div class="text-center col-8 mx-auto">
-            <img src="https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-12.jpg" class="rounded-circle img-fluid border border-dark" alt="Travis Woodward">
+            <img src="{{user.userImageUrl}}" class="rounded-circle img-fluid border border-dark" alt="{{user.userName}}'s User Image">
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-12 text-center">
-            <mat-card>
-                    <h1 class="display-4">{{userName}}<mat-icon class="edit-save" aria-label="Edit name">mode_edit</mat-icon></h1>
-                <smalL>
-                    <p class="lead">"{{tagLine}}"<mat-icon class="edit-save" aria-label="Edit name">mode_edit</mat-icon></p>
-                </smalL>
-                <div>
-                    <button mat-raised-button color="primary" disabled>Follow</button>
-                    &nbsp;
-                    <button mat-raised-button color="accent" disabled>Message</button>
-                    &nbsp;
-                    <button mat-raised-button color="warn" disabled>Report</button>
-                </div>
-                <br>
-                <small>Member since: {{joinDate | date: 'MM/dd/yyyy'}}.</small>
-            </mat-card>
+
+
+                <mat-card>
+
+                    <form [formGroup]="editUser" (ngSubmit)="editUserName()">
+                        <div *ngIf="!currentlyEditingUserName; else EditUserName">
+                            <h1 class="display-4">{{user.userName}}
+                                <button class="edit-save" mat-icon-button (click)="editingUserName(true)" title="Update Username">
+                                    <mat-icon>mode_edit</mat-icon>
+                                </button>
+                            </h1>  
+                        </div>
+                        <ng-template #EditUserName>
+                            <mat-form-field class="w-80">
+                                <mat-label>Username</mat-label>
+                                <input formControlName="userName" matInput required>
+                            </mat-form-field>
+                            <button class="float-right edit-save" mat-icon-button title="Update Username">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                            <button class="float-right edit-save" mat-icon-button (click)="editingUserName(false)" title="Update Username">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </ng-template>
+                    </form>
+                    
+                    <form [formGroup]="editUser" (ngSubmit)="editTagLine()">
+                        <div *ngIf="!currentlyEditingTagLine; else EditTagLine">
+                            <p class="lead">"{{user.tagLine}}"
+                                <button class="edit-save" mat-icon-button (click)="editingTagLine(true)" title="Update Tag Line">
+                                    <mat-icon>mode_edit</mat-icon>
+                                </button>
+                            </p>
+                        </div>
+                        <ng-template #EditTagLine>
+                            <mat-form-field class="w-80">
+                                <mat-label>Tag Line</mat-label>
+                                <input formControlName="tagLine" matInput required>
+                            </mat-form-field>
+                            <button class="float-right edit-save" mat-icon-button title="Update Tag Line">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                            <button class="float-right edit-save" mat-icon-button (click)="editingTagLine(false)" title="Update Tag Line">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </ng-template>
+                    </form>
+              
+                    <div>
+                        <button mat-raised-button color="primary" disabled>Follow</button>
+                        &nbsp;
+                        <button mat-raised-button color="accent" disabled>Message</button>
+                        &nbsp;
+                        <button mat-raised-button color="warn" disabled>Report</button>
+                    </div>
+                    <br>
+                    <small>Last seen: {{user.lastLogin | date: 'MM/dd/yyyy'}}.</small>
+                </mat-card>
+
+          
+
         </div>
     </div>
 
     <div class="content">
             <mat-card>
-                {{biography}}<mat-icon class="edit-save" aria-label="Edit name">mode_edit</mat-icon>
+                <h3>About {{user.userName}}:</h3>
+                <form [formGroup]="editUser" (ngSubmit)="editBiography()">
+                    <div *ngIf="!currentlyEditingBiography; else EditBiography">
+                        <p class="lead">{{user.biography}}
+                            <button class="edit-save" mat-icon-button (click)="editingBiography(true)" title="Update Tag Line">
+                                <mat-icon>mode_edit</mat-icon>
+                            </button>
+                        </p>
+                    </div>
+                    <ng-template #EditBiography>
+                        <mat-form-field class="w-100">
+                            <mat-label>Biography</mat-label>
+                            <textarea matInput formControlName="biography" required></textarea>
+                        </mat-form-field>
+                        <button class="float-right edit-save" mat-icon-button title="Update Biography">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                        <button class="float-right edit-save" mat-icon-button (click)="editingBiography(false)" title="Update Biography">
+                            <mat-icon>clear</mat-icon>
+                        </button><br><br><br>
+                    </ng-template>
+                </form>
         </mat-card>
     </div>
 </div>
+<br>

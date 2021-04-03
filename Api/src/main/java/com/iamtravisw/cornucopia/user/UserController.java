@@ -58,4 +58,38 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect");
         }
     }
+
+    @GetMapping("/retrieve/{userId}")
+    public ResponseEntity<?> getUser(@Validated @PathVariable Long userId) {
+        User storedUser = userRepository.findByUserId(userId);
+        storedUser.setPassword("**********");
+        if(storedUser.getUserName() != null){
+            return ResponseEntity.status(HttpStatus.OK).body(storedUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot find user.");
+        }
+    }
+
+    @PostMapping("/edit/{userId}")
+    public ResponseEntity<?> updateUser(@Validated @RequestBody User user) {
+        User storedUser = userRepository.findByUserId(user.getUserId());
+        User checkUserName = userRepository.findByUsername(user.getUserName());
+        if(!storedUser.getUserName().equals(user.getUserName())){
+            if(checkUserName != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already in use.");
+            }
+            storedUser.setUserName(user.getUserName());
+        }
+        if(!storedUser.getBiography().equals(user.getBiography())){
+            storedUser.setBiography(user.getBiography());
+        }
+        if(!storedUser.getTagLine().equals(user.getTagLine())){
+            storedUser.setTagLine(user.getTagLine());
+        }
+        if(!storedUser.getUserImageUrl().equals(user.getUserImageUrl())){
+            storedUser.setUserImageUrl(user.getUserImageUrl());
+        }
+        userRepository.save(storedUser);
+        return ResponseEntity.status(HttpStatus.OK).body(storedUser);
+    }
 }

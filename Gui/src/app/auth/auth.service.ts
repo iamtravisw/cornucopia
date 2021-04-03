@@ -27,6 +27,22 @@ export class AuthService {
     return this.http.post(this.BaseUri+'/api/user/login', user)
   }
 
+  getUser(userId: number){
+    return this.http.get(this.BaseUri+'/api/user/retrieve/'+userId)
+  }
+
+  editUser(editedUser: any){
+    let userId = +localStorage.getItem('UserId')!;
+    const user: User = {
+      userId: userId,
+      userName: editedUser.value.userName,
+      tagLine: editedUser.value.tagLine,
+      biography: editedUser.value.biography,
+      userImageUrl: editedUser.value.userImageUrl,
+    };
+    return this.http.post(this.BaseUri+'/api/user/edit/'+userId, user)
+  }
+
   register(registerBasic: any, registerUser: any){
     const user: User = {
       firstName: registerBasic.value.firstName,
