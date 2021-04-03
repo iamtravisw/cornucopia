@@ -31,15 +31,13 @@ export class ProfileComponent implements OnInit {
     {
       userName :['', Validators.required],
       tagLine :['', Validators.required],
-      biography :['', Validators.required],
-      userImageUrl :['', Validators.required],
+      biography :['', Validators.required]
     }
   );
 
   currentlyEditingUserName = false;
   currentlyEditingTagLine = false;
   currentlyEditingBiography = false;
-  currentlyEditingUserImage = false;
 
   ngOnInit(): void {
 
@@ -74,12 +72,6 @@ export class ProfileComponent implements OnInit {
     this.currentlyEditingBiography = isEditing;
     return this.currentlyEditingBiography;
   }
-
-  editingUserImage(isEditing: boolean){
-    this.currentlyEditingUserImage = isEditing;
-    return this.currentlyEditingUserImage;
-  }
-
 
   editUserName(){
     this.editUser.value.tagLine = this.user.tagLine;
@@ -123,19 +115,4 @@ export class ProfileComponent implements OnInit {
     });
     this.editingBiography(false);
   }
-
-  editUserImageUrl(){
-    this.editUser.value.userName = this.user.userName;
-    this.editUser.value.tagLine = this.user.tagLine;
-    this.editUser.value.biography = this.user.biography;
-    this.authService.editUser(this.editUser).subscribe(
-      (res:any) => {
-        this.user.userImageUrl = this.editUser.value.userImageUrl; 
-      },
-      (err:any) => {
-        console.log(err);
-    });
-    this.editingUserImage(false);
-  }
-
 }

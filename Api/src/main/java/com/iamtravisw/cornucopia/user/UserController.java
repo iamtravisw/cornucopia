@@ -9,6 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 @RestController
 @RequestMapping("api/user")
 public class UserController {
@@ -49,10 +56,15 @@ public class UserController {
 
         if(passwordMatch){
             final String token = jwtTokenUtil.generateToken(user);
-            storedUser.setPassword(null);
+
             JSONObject result = new JSONObject();
             result.put("Bearer", token);
             result.put("User", storedUser);
+            Date date = new Date();
+
+            storedUser.setLastLogin(date);
+            userRepository.save(storedUser);
+            storedUser.setPassword(null);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect");
@@ -85,9 +97,6 @@ public class UserController {
         }
         if(!storedUser.getTagLine().equals(user.getTagLine())){
             storedUser.setTagLine(user.getTagLine());
-        }
-        if(!storedUser.getUserImageUrl().equals(user.getUserImageUrl())){
-            storedUser.setUserImageUrl(user.getUserImageUrl());
         }
         userRepository.save(storedUser);
         return ResponseEntity.status(HttpStatus.OK).body(storedUser);

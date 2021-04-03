@@ -22,7 +22,7 @@ export class AuthService {
   login(userForm: any){
     const user: User = {
       userName: userForm.value.userName,
-      password: userForm.value.password
+      password: userForm.value.password,
     };
     return this.http.post(this.BaseUri+'/api/user/login', user)
   }
@@ -37,8 +37,7 @@ export class AuthService {
       userId: userId,
       userName: editedUser.value.userName,
       tagLine: editedUser.value.tagLine,
-      biography: editedUser.value.biography,
-      userImageUrl: editedUser.value.userImageUrl,
+      biography: editedUser.value.biography
     };
     return this.http.post(this.BaseUri+'/api/user/edit/'+userId, user)
   }
