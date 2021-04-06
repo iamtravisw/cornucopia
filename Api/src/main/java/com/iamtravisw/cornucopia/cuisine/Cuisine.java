@@ -1,4 +1,4 @@
-package com.iamtravisw.cornucopia.food;
+package com.iamtravisw.cornucopia.cuisine;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +14,18 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Food {
+public class Cuisine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long foodId;
+    private long cuisineId;
 
     private String name;
 
-    private String imageUrl;
+    private String origin;
 
     private Date modDate;
 
     private Date addDate;
+
 }

@@ -7,10 +7,7 @@
     <br>
     <div class="row">
         <div class="col-12 text-center">
-
-
                 <mat-card>
-
                     <form [formGroup]="editUser" (ngSubmit)="editUserName()">
                         <div *ngIf="!currentlyEditingUserName; else EditUserName">
                             <h1 class="display-4">{{user.userName}}
@@ -54,7 +51,6 @@
                             </button>
                         </ng-template>
                     </form>
-              
                     <div>
                         <button mat-raised-button color="primary" disabled>Follow</button>
                         &nbsp;
@@ -65,9 +61,6 @@
                     <br>
                     <small>Last seen: {{user.lastLogin | date: 'MM/dd/yyyy'}}.</small>
                 </mat-card>
-
-          
-
         </div>
     </div>
 

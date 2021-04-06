@@ -1,5 +1,8 @@
-import { Component, ModuleWithComponentFactories, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Ingredient } from '../models/ingredient-model';
 import { Meal } from '../models/meal-model';
+import { PlanService } from './plan.service';
 
 @Component({
   selector: 'app-plan',
@@ -7,15 +10,32 @@ import { Meal } from '../models/meal-model';
   styleUrls: ['./plan.component.scss']
 })
 export class PlanComponent implements OnInit {
-
+  
   meals: Meal[] = [];
+  foods: Meal[] = [];
+  recipes: Meal[] = [];
+  ingredients: any; //Ingredient[] = [];
+  displayedColumns: any;
+  userId = +localStorage.getItem('UserId')!;
 
-  constructor() { 
+  constructor(private planService: PlanService) {}
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.ingredients.filter = filterValue.trim().toLowerCase();
   }
-
+  
   ngOnInit(): void {
 
+    this.planService.getAllIngredientsForUser(this.userId).subscribe(
+      (res:any) => {
+        this.ingredients = new MatTableDataSource(res);
+      },
+      (err:any) => {
+        console.log(err);
+      }
+    );
+    
     this.meals = [
       {id: 1, title: "BBQ Ribs & Baked Potato", content: "Spare Ribs (Pork), Baked Potato, Mac & Cheese.",details: "1000 calories",
       imageCaption: "BBQ Ribs & Baked Potato", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtbLaBtYyVOtA6vdfCD9zs0O9yh4aK-fmRtMVdeaCtYjJARrYUwH11YK9Khjg&usqp=CAc"},
@@ -38,7 +58,8 @@ export class PlanComponent implements OnInit {
       {id: 5, title: "Sheet Pan Quesadilla with Jalapeño Ranch", content: "Stuffed with cheese and avocado, this giant, melty, upgraded cheese sheet pan quesadilla is good on its own, but we take it over the top with a side of homemade jalapeño ranch for dipping.",details: "620 calories",
       imageCaption: "Quesadilla", imageUrl: "https://images.themodernproper.com/billowy-turkey/production/posts/2020/sheetpan-quesadilla-9.jpg?w=667&auto=compress%2Cformat&fit=crop&fp-x=0.5&fp-y=0.5&dm=1603458592&s=7fe44b72444b1bbbf1c166f133b0b9f4"},
     ];
-    
-  }
 
+  
+    this.displayedColumns = ['ingredientName', 'atHome', "quantity"];
+  }
 }

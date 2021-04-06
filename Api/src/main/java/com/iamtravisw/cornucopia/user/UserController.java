@@ -65,6 +65,7 @@ public class UserController {
             storedUser.setLastLogin(date);
             userRepository.save(storedUser);
             storedUser.setPassword(null);
+
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password is incorrect");
@@ -82,7 +83,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/edit/{userId}")
+    @PutMapping("/edit/{userId}")
     public ResponseEntity<?> updateUser(@Validated @RequestBody User user) {
         User storedUser = userRepository.findByUserId(user.getUserId());
         User checkUserName = userRepository.findByUsername(user.getUserName());

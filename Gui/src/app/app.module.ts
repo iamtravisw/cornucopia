@@ -14,7 +14,6 @@ import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { ExploreComponent } from './explore/explore.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -33,6 +32,7 @@ import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from "@angular/common/http";
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -41,7 +41,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     NavbarComponent,
     PlanComponent,
     NavbarFooterComponent,
-    ExploreComponent,
     AddContentComponent,
     WhatToEatComponent,
     WhatsHotComponent,
@@ -72,7 +71,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatButtonToggleModule,
     HttpClientModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTableModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

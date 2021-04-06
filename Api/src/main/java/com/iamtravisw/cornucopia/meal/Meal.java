@@ -1,19 +1,19 @@
 package com.iamtravisw.cornucopia.meal;
 
+import com.iamtravisw.cornucopia.cuisine.Cuisine;
 import com.iamtravisw.cornucopia.food.Food;
 import com.iamtravisw.cornucopia.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 //@Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Meal {
 
@@ -21,16 +21,28 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long mealId;
 
+    @OneToOne
+    @JoinColumn
     private Food appetizer;
 
+    @OneToOne
+    @JoinColumn
     private Food entree;
 
+    @OneToMany
     private List<Food> sides;
 
+    @OneToOne
+    @JoinColumn
     private User user;
 
-    private String cuisine;
+    @OneToMany
+    private List<Cuisine> cuisine;
 
-    private String mealImageUrl;
+    private String imageUrl;
+
+    private Date modDate;
+
+    private Date addDate;
 
 }

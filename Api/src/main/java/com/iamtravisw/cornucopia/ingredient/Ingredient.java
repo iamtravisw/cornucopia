@@ -1,25 +1,42 @@
 package com.iamtravisw.cornucopia.ingredient;
 
+import com.iamtravisw.cornucopia.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
-//@Entity
-@Getter @Setter
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
 public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    private long ingredientId;
 
     private String ingredientName;
 
-    private char atHome;
+    private Boolean atHome;
+
+    private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    private Unit unit;
+
+    private Double quantity;
+
+    private Double warningLow;
+
+    @JoinColumn
+    @OneToOne
+    private User user;
+
+    private Date modDate;
+
+    private Date addDate;
 
 }

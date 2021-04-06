@@ -10,7 +10,8 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
 
@@ -41,5 +42,9 @@ public class User {
     private String tagLine;
 
     private String biography;
+
+    private Date modDate;
+
+    private Date addDate;
 
 }
