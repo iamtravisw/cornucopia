@@ -1,28 +1,29 @@
-package com.iamtravisw.cornucopia.cuisine;
+package com.iamtravisw.cornucopia.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 //@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Cuisine {
+public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long cuisineId;
+    private long recipeId;
 
     private String name;
 
-    private String origin;
+    @OneToMany
+    private List<Ingredient> ingredients;
+
+    private String imageUrl;
 
     private Date modDate;
 

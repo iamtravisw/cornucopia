@@ -1,6 +1,5 @@
-package com.iamtravisw.cornucopia.ingredient;
+package com.iamtravisw.cornucopia.model;
 
-import com.iamtravisw.cornucopia.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +29,8 @@ public class Ingredient {
     private Double quantity;
 
     private Double warningLow;
+
+    private String note;
 
     @JoinColumn
     @OneToOne

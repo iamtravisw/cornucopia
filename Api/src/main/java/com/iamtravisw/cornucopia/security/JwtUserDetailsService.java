@@ -1,8 +1,8 @@
 package com.iamtravisw.cornucopia.security;
 
 import java.util.ArrayList;
-import com.iamtravisw.cornucopia.user.User;
-import com.iamtravisw.cornucopia.user.UserRepository;
+import com.iamtravisw.cornucopia.model.User;
+import com.iamtravisw.cornucopia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

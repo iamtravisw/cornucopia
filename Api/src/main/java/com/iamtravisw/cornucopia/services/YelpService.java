@@ -1,4 +1,4 @@
-package com.iamtravisw.cornucopia.what2eat;
+package com.iamtravisw.cornucopia.services;
 
 import java.net.URI;
 import java.net.http.HttpClient;

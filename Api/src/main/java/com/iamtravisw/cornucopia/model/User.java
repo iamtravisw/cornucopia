@@ -1,4 +1,4 @@
-package com.iamtravisw.cornucopia.user;
+package com.iamtravisw.cornucopia.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,9 @@ public class User {
 
     @Size(min = 2, max = 20, message = "Username must be between 2 and 20 characters")
     private String userName;
+
+    @Size(min = 2, max = 20, message = "Username must be between 2 and 20 characters")
+    private String displayName;
 
     private String firstName;
 

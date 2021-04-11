@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../models/user-model';
+import { LoadingService } from '../util/loading.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,11 +12,18 @@ import { User } from '../models/user-model';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private authService: AuthService,  private fb: FormBuilder) { }
+  constructor(private authService: AuthService,  private fb: FormBuilder, private loadingService: LoadingService, private activatedRoute: ActivatedRoute, private router: Router) { 
+    activatedRoute.params.subscribe(params => {
+      this.userName = params['userName'];
+    });
+  }
 
+  userName = "";
+  currentUserId = +localStorage.getItem('UserId')!;
   user: User = {
     userId: 0,
     userName: "",
+    displayName: "",
     firstName: "",
     lastName: "",
     phone: "",
@@ -29,38 +38,65 @@ export class ProfileComponent implements OnInit {
 
   editUser = this.fb.group(
     {
-      userName :['', Validators.required],
+      displayName :['', Validators.required],
       tagLine :['', Validators.required],
       biography :['', Validators.required]
     }
   );
 
-  currentlyEditingUserName = false;
+  currentlyEditingDisplayName = false;
   currentlyEditingTagLine = false;
   currentlyEditingBiography = false;
 
   ngOnInit(): void {
-
-    this.authService.getUser(+localStorage.getItem('UserId')!).subscribe(
+    this.loadingService.isLoading = true;
+    this.authService.getUserByUserName(this.userName).subscribe(
       (res:any) => {
         this.user = res;
-
         this.editUser.patchValue({
-          userName: this.user.userName,
+          displayName: this.user.displayName,
           tagLine: this.user.tagLine,
           biography: this.user.biography,
           userImageUrl: this.user.userImageUrl
-        });
-        
+        })
       },
       (err:any) => {
         console.log(err);
     });
+    this.loadingService.isLoading = false;
+
+    this.router.events.subscribe((event) => {
+      if(event) {
+        this.loadingService.isLoading = true;
+        this.authService.getUserById(this.currentUserId).subscribe(
+          (res:any) => {
+            this.user = res;
+            this.editUser.patchValue({
+              displayName: this.user.displayName,
+              tagLine: this.user.tagLine,
+              biography: this.user.biography,
+              userImageUrl: this.user.userImageUrl
+            })
+          },
+          (err:any) => {
+            console.log(err);
+        });
+        this.loadingService.isLoading = false;
+      }
+    });
   }
 
-  editingUserName(isEditing: boolean){
-    this.currentlyEditingUserName = isEditing;
-    return this.currentlyEditingUserName;
+  currentUserIsProfileUser(){
+    if(this.user.userId === this.currentUserId){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  editingDisplayName(isEditing: boolean){
+    this.currentlyEditingDisplayName = isEditing;
+    return this.currentlyEditingDisplayName;
   }
 
   editingTagLine(isEditing: boolean){
@@ -73,23 +109,22 @@ export class ProfileComponent implements OnInit {
     return this.currentlyEditingBiography;
   }
 
-  editUserName(){
+  editDisplayName(){
     this.editUser.value.tagLine = this.user.tagLine;
     this.editUser.value.biography = this.user.biography;
     this.editUser.value.userImageUrl = this.user.userImageUrl;
     this.authService.editUser(this.editUser).subscribe(
       (res:any) => {
-        this.user.userName = this.editUser.value.userName; 
+        this.user.displayName = this.editUser.value.displayName; 
       },
       (err:any) => {
         console.log(err);
     });
-    this.editingUserName(false);
+    this.editingDisplayName(false);
   }
 
   editTagLine(){
-    console.log('wtf')
-    this.editUser.value.userName = this.user.userName;
+    this.editUser.value.displayName = this.user.displayName;
     this.editUser.value.biography = this.user.biography;
     this.editUser.value.userImageUrl = this.user.userImageUrl;
     this.authService.editUser(this.editUser).subscribe(
@@ -103,7 +138,7 @@ export class ProfileComponent implements OnInit {
   }
 
   editBiography(){
-    this.editUser.value.userName = this.user.userName;
+    this.editUser.value.displayName = this.user.displayName;
     this.editUser.value.tagLine = this.user.tagLine;
     this.editUser.value.userImageUrl = this.user.userImageUrl;
     this.authService.editUser(this.editUser).subscribe(
@@ -115,4 +150,10 @@ export class ProfileComponent implements OnInit {
     });
     this.editingBiography(false);
   }
+
+  logout(){
+    localStorage.clear();
+    location.reload();
+  }
+
 }

@@ -30,6 +30,7 @@ export class PlanComponent implements OnInit {
     this.planService.getAllIngredientsForUser(this.userId).subscribe(
       (res:any) => {
         this.ingredients = new MatTableDataSource(res);
+        console.log(res);
       },
       (err:any) => {
         console.log(err);

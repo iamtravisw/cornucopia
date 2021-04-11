@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="text-center mx-auto">
+        <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+
+            <!--
+            <img src="../../../assets/noimage.png" class="img-fluid" alt="Responsive image">
+             -->
+             
+             <br>
+             <p class="h2">Add Ingredient</p>
+
+            <div class="row">
+                <mat-form-field class="col-12">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="ingredientName" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+
+                <mat-form-field class="col-4">
+                    <mat-label>Unit</mat-label>
+                    <mat-select formControlName="unit">
+                      <mat-option>None</mat-option>
+                      <mat-option *ngFor="let unit of units" [value]="unit">
+                        {{unit}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <mat-label>Quantity</mat-label>
+                    <input formControlName="quantity" placeholder="25" matInput required>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <mat-label>Warning Qty</mat-label>
+                    <input formControlName="warningLow" placeholder="5" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field class="col-12">
+                    <mat-label>Notes</mat-label>
+                    <textarea  formControlName="note" matInput placeholder="Ex. My favorite ingredient from the local farmer's market!"></textarea>
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="primary">Add Ingredient</button>
+
+        </form>
+        
+    </div>
+</div>

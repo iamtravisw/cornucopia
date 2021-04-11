@@ -24,13 +24,11 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.authService.login(this.loginForm).subscribe(
       (res:any) => {
-        console.log(res);
         localStorage.setItem('Bearer', res.Bearer);
         localStorage.setItem('UserId', res.User.userId);
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/profile/'+res.User.userName]);
       },
       (err:any) => {
-        console.log(err);
         this.errorMessage = "Check your username and password."
       }
     );

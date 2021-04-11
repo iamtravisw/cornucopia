@@ -1,30 +1,31 @@
 <div class="main container">
     <div class="row">
         <div class="text-center col-8 mx-auto">
-            <img src="../../assets/no_image.jpg" class="rounded-circle img-fluid border border-dark" alt="{{user.userName}}'s User Image">
+            <img src="../../assets/no_image.jpg" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-12 text-center">
+            
                 <mat-card>
-                    <form [formGroup]="editUser" (ngSubmit)="editUserName()">
-                        <div *ngIf="!currentlyEditingUserName; else EditUserName">
-                            <h1 class="display-4">{{user.userName}}
-                                <button class="edit-save" mat-icon-button (click)="editingUserName(true)" title="Update Username">
+                    <form [formGroup]="editUser" (ngSubmit)="editDisplayName()">
+                        <div *ngIf="!currentlyEditingDisplayName; else EditDisplayName">
+                            <h1 class="display-4">{{user.displayName}}
+                                <button *ngIf="currentUserIsProfileUser()" class="edit-save" mat-icon-button (click)="editingDisplayName(true)" title="Update Display Name">
                                     <mat-icon>mode_edit</mat-icon>
                                 </button>
                             </h1>  
                         </div>
-                        <ng-template #EditUserName>
+                        <ng-template #EditDisplayName>
                             <mat-form-field class="w-80">
-                                <mat-label>Username</mat-label>
-                                <input formControlName="userName" matInput required>
+                                <mat-label>Display Name</mat-label>
+                                <input formControlName="displayName" matInput required>
                             </mat-form-field>
-                            <button class="float-right edit-save" mat-icon-button title="Update Username">
+                            <button class="float-right edit-save" mat-icon-button title="Update Display Name">
                                 <mat-icon>check</mat-icon>
                             </button>
-                            <button class="float-right edit-save" mat-icon-button (click)="editingUserName(false)" title="Update Username">
+                            <button class="float-right edit-save" mat-icon-button (click)="editingDisplayName(false)" title="Update Display Name">
                                 <mat-icon>clear</mat-icon>
                             </button>
                         </ng-template>
@@ -33,7 +34,7 @@
                     <form [formGroup]="editUser" (ngSubmit)="editTagLine()">
                         <div *ngIf="!currentlyEditingTagLine; else EditTagLine">
                             <p class="lead">"{{user.tagLine}}"
-                                <button class="edit-save" mat-icon-button (click)="editingTagLine(true)" title="Update Tag Line">
+                                <button *ngIf="currentUserIsProfileUser()" class="edit-save" mat-icon-button (click)="editingTagLine(true)" title="Update Tag Line">
                                     <mat-icon>mode_edit</mat-icon>
                                 </button>
                             </p>
@@ -51,13 +52,24 @@
                             </button>
                         </ng-template>
                     </form>
-                    <div>
-                        <button mat-raised-button color="primary" disabled>Follow</button>
+
+                    <div *ngIf="currentUserIsProfileUser()"> 
+                        <button mat-raised-button color="accent" disabled><mat-icon>manage_accounts</mat-icon>Account</button>
                         &nbsp;
-                        <button mat-raised-button color="accent" disabled>Message</button>
-                        &nbsp;
-                        <button mat-raised-button color="warn" disabled>Report</button>
+                        <button mat-raised-button color="warn" (click)="logout();"><mat-icon>logout</mat-icon>Log Out</button>
                     </div>
+
+                    <div *ngIf="!currentUserIsProfileUser()"> 
+                        <div>
+                            <button mat-raised-button color="primary" disabled>Follow</button>
+                            &nbsp;
+                            <button mat-raised-button color="accent" disabled>Message</button>
+                            &nbsp;
+                            <button mat-raised-button color="warn" disabled>Report</button>
+                        </div>
+                     </div>
+
+                   
                     <br>
                     <small>Last seen: {{user.lastLogin | date: 'MM/dd/yyyy'}}.</small>
                 </mat-card>
@@ -66,11 +78,11 @@
 
     <div class="content">
             <mat-card>
-                <h3>About {{user.userName}}:</h3>
+                <h3>About {{user.displayName}}:</h3>
                 <form [formGroup]="editUser" (ngSubmit)="editBiography()">
                     <div *ngIf="!currentlyEditingBiography; else EditBiography">
                         <p class="lead">{{user.biography}}
-                            <button class="edit-save" mat-icon-button (click)="editingBiography(true)" title="Update Tag Line">
+                            <button *ngIf="currentUserIsProfileUser()" class="edit-save" mat-icon-button (click)="editingBiography(true)" title="Update Tag Line">
                                 <mat-icon>mode_edit</mat-icon>
                             </button>
                         </p>

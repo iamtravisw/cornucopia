@@ -1,4 +1,4 @@
-package com.iamtravisw.cornucopia.ingredient;
+package com.iamtravisw.cornucopia.model;
 
 public enum Unit {
     tsp("TEASPOON"),

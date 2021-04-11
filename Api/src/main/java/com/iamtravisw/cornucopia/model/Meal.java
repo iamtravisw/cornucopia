@@ -1,8 +1,5 @@
-package com.iamtravisw.cornucopia.meal;
+package com.iamtravisw.cornucopia.model;
 
-import com.iamtravisw.cornucopia.cuisine.Cuisine;
-import com.iamtravisw.cornucopia.food.Food;
-import com.iamtravisw.cornucopia.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

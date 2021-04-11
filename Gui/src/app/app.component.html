@@ -3,6 +3,7 @@
     <br><br><br><br>
 </ng-container> 
 
+<mat-spinner *ngIf="loadingService.isLoading" class="loading"></mat-spinner>
 <router-outlet></router-outlet>
 
 <ng-container *ngIf="authService.loggedIn">

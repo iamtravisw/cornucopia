@@ -1,6 +1,7 @@
 export class User {
     userId?: number;
     userName?: string;
+    displayName?: string;
     firstName?: string;
     lastName?: string;
     phone?: string;
@@ -15,6 +16,7 @@ export class User {
     constructor() {
         this.userId = 0;
         this.userName = "";
+        this.displayName = "";
         this.firstName = "";
         this.lastName = "";
         this.phone = "";

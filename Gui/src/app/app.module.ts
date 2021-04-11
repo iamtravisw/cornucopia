@@ -33,7 +33,10 @@ import { HttpClientModule } from "@angular/common/http";
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTableModule} from '@angular/material/table';
-
+import { IngredientComponent } from './add-content/ingredient/ingredient.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoadingService } from './util/loading.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import {MatTableModule} from '@angular/material/table';
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
+    IngredientComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,9 +76,11 @@ import {MatTableModule} from '@angular/material/table';
     HttpClientModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, LoadingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

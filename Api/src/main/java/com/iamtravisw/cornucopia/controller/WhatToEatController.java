@@ -1,12 +1,5 @@
-package com.iamtravisw.cornucopia.what2eat;
+package com.iamtravisw.cornucopia.controller;
 
-import com.iamtravisw.cornucopia.user.User;
-import com.iamtravisw.cornucopia.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;

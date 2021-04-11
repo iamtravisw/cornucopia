@@ -9,37 +9,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  loggedIn = false;
-  readonly BaseUri = "http://localhost:8080";
+  readonly BaseUri = "http://localhost:8080/api/user";
+  readonly userId = +localStorage.getItem('UserId')!;
+  readonly token = localStorage.getItem('Bearer')!;
+  loggedIn: Boolean = false;
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization':'Bearer '+localStorage.getItem('bearer')
+      'Authorization':'Bearer '+this.token
     })
-  }
-
-  login(userForm: any){
-    const user: User = {
-      userName: userForm.value.userName,
-      password: userForm.value.password,
-    };
-    return this.http.post(this.BaseUri+'/api/user/login', user)
-  }
-
-  getUser(userId: number){
-    return this.http.get(this.BaseUri+'/api/user/retrieve/'+userId)
-  }
-
-  editUser(editedUser: any){
-    let userId = +localStorage.getItem('UserId')!;
-    const user: User = {
-      userId: userId,
-      userName: editedUser.value.userName,
-      tagLine: editedUser.value.tagLine,
-      biography: editedUser.value.biography
-    };
-    return this.http.post(this.BaseUri+'/api/user/edit/'+userId, user)
   }
 
   register(registerBasic: any, registerUser: any){
@@ -52,7 +31,34 @@ export class AuthService {
       password: registerUser.value.password,
       lastLogin: new Date(Date.now())
     };
-    return this.http.post(this.BaseUri+'/api/user/register', user)
+    return this.http.post(this.BaseUri+'/register', user)
   }
 
+  login(userForm: any){
+    const user: User = {
+      userName: userForm.value.userName,
+      password: userForm.value.password,
+    };
+    return this.http.post(this.BaseUri+'/login', user)
+  }
+
+  getUserById(userId: number){
+    return this.http.get(this.BaseUri+'/retrieve/id/'+userId)
+  }
+
+  getUserByUserName(userName: string){
+    return this.http.get(this.BaseUri+'/retrieve/username/'+userName)
+  }
+
+  editUser(editedUser: any){
+    const user: User = {
+      userId: this.userId,
+      displayName: editedUser.value.displayName,
+      tagLine: editedUser.value.tagLine,
+      biography: editedUser.value.biography
+    };
+    return this.http.put(this.BaseUri+'/edit/', user)
+  }
+
+  
 }

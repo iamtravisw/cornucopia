@@ -1,11 +1,22 @@
-package com.iamtravisw.cornucopia.ingredient;
+package com.iamtravisw.cornucopia.controller;
 
+import com.iamtravisw.cornucopia.repository.IngredientRepository;
+import com.iamtravisw.cornucopia.model.Unit;
+import com.iamtravisw.cornucopia.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +26,7 @@ public class IngredientController {
 
     @Autowired
     private IngredientRepository ingredientRepository;
+
 
     @PostMapping("/add")
     public ResponseEntity<?> saveIngredient(@Validated @RequestBody Ingredient ingredient) {
@@ -51,7 +63,6 @@ public class IngredientController {
 
         for (Ingredient i: storedIngredient) {
             i.getUser().setPassword("******");
-            i.setUnit(i.getUnit());
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(storedIngredient);
@@ -62,4 +73,11 @@ public class IngredientController {
         ingredientRepository.deleteById(ingredientId);
         return ResponseEntity.status(HttpStatus.OK).body("Ingredient " +ingredientId+ " successfully deleted.");
     }
+
+    @GetMapping("/units")
+    public ResponseEntity<?> getUnits() {
+        List<Enum> units = Arrays.asList(Unit.values());
+        return ResponseEntity.status(HttpStatus.OK).body(units);
+    }
+
 }

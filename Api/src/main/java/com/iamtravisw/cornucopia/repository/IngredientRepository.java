@@ -1,5 +1,6 @@
-package com.iamtravisw.cornucopia.ingredient;
+package com.iamtravisw.cornucopia.repository;
 
+import com.iamtravisw.cornucopia.model.Ingredient;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
