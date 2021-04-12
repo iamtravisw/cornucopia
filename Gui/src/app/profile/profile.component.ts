@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../models/user-model';
@@ -54,12 +54,16 @@ export class ProfileComponent implements OnInit {
   currentlyEditingTagLine = false;
   currentlyEditingBiography = false;
 
+  @ViewChild('imageInput')
+  imageInput!: ElementRef;
+
   selectedFile: ImageSnippet = new ImageSnippet("", new File([], ""));
+  
 
   ngOnInit(): void {
-    this.loadingService.isLoading = true;
     this.authService.getUserByUserName(this.userName).subscribe(
       (res:any) => {
+        this.loadingService.isLoading = true;
         this.user = res;
         this.editUser.patchValue({
           displayName: this.user.displayName,
@@ -73,7 +77,6 @@ export class ProfileComponent implements OnInit {
         console.log(err);
         this.loadingService.isLoading = false;
     });
-    
 
     this.router.events.subscribe((event) => {
       if(event) {
@@ -166,14 +169,13 @@ export class ProfileComponent implements OnInit {
     location.reload();
   }
 
-
-
   processFile(imageInput: any) {
     this.loadingService.isLoading = true;
     const file: File = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
+
       this.imageService.uploadImage(this.selectedFile.file).subscribe(
         (res:any) => {
         this.user.userImageUrl = res.userImageUrl;
@@ -185,8 +187,8 @@ export class ProfileComponent implements OnInit {
         })
         
     });
-    ;
     reader.readAsDataURL(file);
+    this.imageInput.nativeElement.value = "";
   }
 
 }
