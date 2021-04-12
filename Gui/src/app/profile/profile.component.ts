@@ -4,6 +4,11 @@ import { AuthService } from '../auth/auth.service';
 import { User } from '../models/user-model';
 import { LoadingService } from '../util/loading.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import { ImageService } from '../util/image.service';
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +17,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private authService: AuthService,  private fb: FormBuilder, private loadingService: LoadingService, private activatedRoute: ActivatedRoute, private router: Router) { 
+  constructor(private authService: AuthService,  private fb: FormBuilder, private loadingService: LoadingService, private activatedRoute: ActivatedRoute, private router: Router, private imageService: ImageService) { 
     activatedRoute.params.subscribe(params => {
       this.userName = params['userName'];
     });
@@ -41,12 +46,15 @@ export class ProfileComponent implements OnInit {
       displayName :['', Validators.required],
       tagLine :['', Validators.required],
       biography :['', Validators.required]
+
     }
   );
 
   currentlyEditingDisplayName = false;
   currentlyEditingTagLine = false;
   currentlyEditingBiography = false;
+
+  selectedFile: ImageSnippet = new ImageSnippet("", new File([], ""));
 
   ngOnInit(): void {
     this.loadingService.isLoading = true;
@@ -59,11 +67,13 @@ export class ProfileComponent implements OnInit {
           biography: this.user.biography,
           userImageUrl: this.user.userImageUrl
         })
+        this.loadingService.isLoading = false;
       },
       (err:any) => {
         console.log(err);
+        this.loadingService.isLoading = false;
     });
-    this.loadingService.isLoading = false;
+    
 
     this.router.events.subscribe((event) => {
       if(event) {
@@ -154,6 +164,29 @@ export class ProfileComponent implements OnInit {
   logout(){
     localStorage.clear();
     location.reload();
+  }
+
+
+
+  processFile(imageInput: any) {
+    this.loadingService.isLoading = true;
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+      this.imageService.uploadImage(this.selectedFile.file).subscribe(
+        (res:any) => {
+        this.user.userImageUrl = res.userImageUrl;
+        this.loadingService.isLoading = false;
+        },
+        (err:any) => {
+        console.log(err);
+        this.loadingService.isLoading = false;
+        })
+        
+    });
+    ;
+    reader.readAsDataURL(file);
   }
 
 }

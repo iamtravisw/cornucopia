@@ -37,6 +37,7 @@ import { IngredientComponent } from './add-content/ingredient/ingredient.compone
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingService } from './util/loading.service';
+import { ImageService } from './util/image.service';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import { LoadingService } from './util/loading.service';
     MatSelectModule,
     MatProgressSpinnerModule
   ],
-  providers: [AuthService, LoadingService],
+  providers: [AuthService, LoadingService, ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

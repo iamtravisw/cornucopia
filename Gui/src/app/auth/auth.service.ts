@@ -10,14 +10,12 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   readonly BaseUri = "http://localhost:8080/api/user";
-  readonly userId = +localStorage.getItem('UserId')!;
-  readonly token = localStorage.getItem('Bearer')!;
   loggedIn: Boolean = false;
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization':'Bearer '+this.token
+      'Authorization':'Bearer ' +localStorage.getItem('Bearer')!
     })
   }
 
@@ -52,12 +50,13 @@ export class AuthService {
 
   editUser(editedUser: any){
     const user: User = {
-      userId: this.userId,
+      userId: +localStorage.getItem('UserId')!,
       displayName: editedUser.value.displayName,
       tagLine: editedUser.value.tagLine,
       biography: editedUser.value.biography
     };
-    return this.http.put(this.BaseUri+'/edit/', user)
+    console.log(user)
+    return this.http.put(this.BaseUri+'/edit', user)
   }
 
   

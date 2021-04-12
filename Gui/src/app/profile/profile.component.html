@@ -1,12 +1,23 @@
 <div class="main container">
+
     <div class="row">
         <div class="text-center col-8 mx-auto">
-            <img src="../../assets/no_image.jpg" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
-        </div>
+            <img src="{{user.userImageUrl}}" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
+
+      
+                <input *ngIf="currentUserIsProfileUser()" #imageInput
+                       type="file"
+                       accept="image/*"
+                       (change)="processFile(imageInput)">
+          
+
+        </div>  
     </div>
+    
     <br>
     <div class="row">
         <div class="col-12 text-center">
+
             
                 <mat-card>
                     <form [formGroup]="editUser" (ngSubmit)="editDisplayName()">

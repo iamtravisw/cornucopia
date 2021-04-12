@@ -86,6 +86,10 @@ public class UserController {
     @PutMapping("/edit")
     public ResponseEntity<?> updateUser(@Validated @RequestBody User user) {
         User storedUser = userRepository.findByUserId(user.getUserId());
+
+        System.out.println(user.getUserId());
+        System.out.println(user.getUserName());
+
         if(user.getDisplayName() != storedUser.getDisplayName()){
             storedUser.setDisplayName(user.getDisplayName());
         }
