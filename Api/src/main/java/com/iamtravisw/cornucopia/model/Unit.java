@@ -15,7 +15,8 @@ public enum Unit {
     L("LITER"),
     kg("KILOGRAM"),
     p("PINCH"),
-    Qty("QUANTITY");
+    Qty("QUANTITY"),
+    None("NONE");
 
     public final String label;
 

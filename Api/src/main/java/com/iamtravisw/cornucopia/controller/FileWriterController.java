@@ -1,10 +1,15 @@
 package com.iamtravisw.cornucopia.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
+import com.iamtravisw.cornucopia.model.Ingredient;
 import com.iamtravisw.cornucopia.model.User;
+import com.iamtravisw.cornucopia.repository.IngredientRepository;
 import com.iamtravisw.cornucopia.repository.UserRepository;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
+
+import org.apache.commons.io.FilenameUtils;
 
 @RestController
-@RequestMapping("api/file")
+@RequestMapping("api/image")
 public class FileWriterController {
 
     @Autowired
@@ -25,20 +31,58 @@ public class FileWriterController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/write/image/{userId}")
+    @Autowired
+    private IngredientRepository ingredientRepository;
+
+    private final String bucket = "cornucopia-app";
+    private final String googleStoragePath = "https://storage.googleapis.com/cornucopia-app/";
+    private final String pattern = "yyyyMMdd-HHmmss";
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    private final String date = simpleDateFormat.format(new Date());
+
+    @PostMapping("/profile/{userId}")
     @ResponseBody
-    public ResponseEntity<?> writeFileToBucket(@PathVariable Long userId, @RequestParam("file")MultipartFile file) throws IOException {
+    public ResponseEntity<?> addProfilePhoto(@PathVariable Long userId, @RequestParam("file")MultipartFile file) throws IOException {
         User storedUser = userRepository.findByUserId(userId);
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(new Date());
-        String fileName = date+"_userId"+userId+"_"+file.getOriginalFilename();
-        storedUser.setUserImageUrl("https://storage.googleapis.com/cornucopia-app/"+fileName);
-        BlobId blobId = BlobId.of("cornucopia-app", fileName);
+        String fileName = "profile_userId-"+userId+"_"+date+"_"+file.getOriginalFilename();
+        BlobId blobId = BlobId.of(bucket, fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
         byte[] data = file.getBytes();
-        storage.create(blobInfo, data);
-        userRepository.save(storedUser);
+        if(storedUser.getUserImageUrl() != null){
+            String savedFileName = FilenameUtils.getName(storedUser.getUserImageUrl());
+            BlobId blobIdToDelete = BlobId.of(bucket, savedFileName);
+            try {
+                storage.delete(blobIdToDelete);
+            } catch(Exception e) {
+                System.out.println(e);
+            }
+        }
+        storedUser.setUserImageUrl(googleStoragePath+fileName);
+        storedUser.setModDate(new Date());
+        try {
+            userRepository.save(storedUser);
+            storage.create(blobInfo, data);
+        } catch(Exception e) {
+            ResponseEntity.status(HttpStatus.OK).body(e);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(storedUser);
+    }
+
+    @PostMapping("/ingredient/{userId}")
+    @ResponseBody
+    public ResponseEntity<?> addIngredientPhoto(@PathVariable Long userId, @RequestParam("file")MultipartFile file) throws IOException {
+        String fileName = "ingredient_userId-"+userId+"_"+date+"_"+file.getOriginalFilename();
+        BlobId blobId = BlobId.of(bucket, fileName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+        byte[] data = file.getBytes();
+        try {
+            storage.create(blobInfo, data);
+        } catch(Exception e) {
+            ResponseEntity.status(HttpStatus.OK).body(e);
+        }
+        String jsonString = "{\"imageUrl\": \""+googleStoragePath+fileName+"\"}";
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(jsonString);
+        return ResponseEntity.status(HttpStatus.OK).body(actualObj);
     }
 }
