@@ -1,13 +1,29 @@
 <div class="container">
+    <br>
+    <mat-card>
     <div class="text-center mx-auto">
         <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
 
-            <!--
-            <img src="../../../assets/noimage.png" class="img-fluid" alt="Responsive image">
-             -->
-             
+            <div class="row">
+                <div class="text-center col-8 mx-auto">
+                    <label>
+                        <div *ngIf="currentImage">
+                            <img src="{{currentImage}}" class="img-fluid border border-dark" alt="Ingredient">
+                        </div>
+                        <div *ngIf="!currentImage">
+                            <img src="../../assets/no_image.png" class="img-fluid border border-dark" alt="Ingredient">
+                        </div>
+                        <input #imageInput
+                            type="file"
+                            accept="image/*"
+                            (change)="processFile(imageInput)"
+                            [hidden]="true">  
+                        </label>
+                    </div>  
+                </div>
+
              <br>
-             <p class="h2">Add Ingredient</p>
+             <p class="h4">Add Ingredient</p>
 
             <div class="row">
                 <mat-form-field class="col-12">
@@ -20,8 +36,7 @@
 
                 <mat-form-field class="col-4">
                     <mat-label>Unit</mat-label>
-                    <mat-select formControlName="unit">
-                      <mat-option>None</mat-option>
+                    <mat-select formControlName="unit" required>
                       <mat-option *ngFor="let unit of units" [value]="unit">
                         {{unit}}
                       </mat-option>
@@ -30,12 +45,12 @@
 
                 <mat-form-field class="col-4">
                     <mat-label>Quantity</mat-label>
-                    <input formControlName="quantity" placeholder="25" matInput required>
+                    <input formControlName="quantity" placeholder="25" matInput>
                 </mat-form-field>
 
                 <mat-form-field class="col-4">
                     <mat-label>Warning Qty</mat-label>
-                    <input formControlName="warningLow" placeholder="5" matInput required>
+                    <input formControlName="warningLow" placeholder="5" matInput>
                 </mat-form-field>
             </div>
 
@@ -46,9 +61,11 @@
                 </mat-form-field>
             </div>
 
-            <button mat-raised-button color="primary">Add Ingredient</button>
+            <button class="float-right" mat-raised-button color="primary">Add Ingredient</button>
+            <br><br>
 
         </form>
         
     </div>
+    </mat-card>
 </div>

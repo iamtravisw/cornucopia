@@ -6,14 +6,21 @@ import { Injectable } from '@angular/core';
 })
 export class ImageService {
 
-  readonly BaseUri = "http://localhost:8080/api";
+  readonly BaseUri = "http://localhost:8080/api/image";
 
   constructor(private http: HttpClient) { }
 
-  uploadImage(image: File){
+  uploadProfileImage(image: File){
     let userId: number = +localStorage.getItem('UserId')!
     const formData = new FormData();
     formData.append('file', image);
-    return this.http.post(this.BaseUri+'/file/write/image/'+userId, formData);
+    return this.http.post(this.BaseUri+'/profile/'+userId, formData);
+  }
+
+  uploadIngredientImage(image: File){
+    let userId: number = +localStorage.getItem('UserId')!
+    const formData = new FormData();
+    formData.append('file', image);
+    return this.http.post(this.BaseUri+'/ingredient/'+userId, formData);
   }
 }

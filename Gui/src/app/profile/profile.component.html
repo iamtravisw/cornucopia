@@ -1,32 +1,28 @@
 <div class="main container">
-
-    <div class="row">
-        <div class="text-center col-8 mx-auto">
-                <label>
-                    <div *ngIf="user.userImageUrl">
-                        <img src="{{user.userImageUrl}}" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
-                    </div>
-                    <div *ngIf="!user.userImageUrl">
-                        <img src="../../assets/no_image.jpg" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
-                    </div>
-                    <input *ngIf="currentUserIsProfileUser()" #imageInput
-                        type="file"
-                        accept="image/*"
-                        (change)="processFile(imageInput)"
-                        [hidden]="true">
-                </label>      
-        </div>  
-    </div>
-    
-    <br>
     <div class="row">
         <div class="col-12 text-center">
-
-            
                 <mat-card>
+                    <div class="row">
+                        <div class="text-center col-8 mx-auto">
+                            <label [ngStyle]="{'cursor':currentUserIsProfileUser() ? 'pointer' : 'auto'}">
+                                <div *ngIf="user.userImageUrl">
+                                    <img src="{{user.userImageUrl}}" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
+                                </div>
+                                <div *ngIf="!user.userImageUrl">
+                                    <img src="../../assets/no_image.jpg" class="rounded-circle img-fluid border border-dark" alt="{{user.displayName}}'s User Image">
+                                </div>
+                                <input *ngIf="currentUserIsProfileUser()" #imageInput
+                                    type="file"
+                                    accept="image/*"
+                                    (change)="processFile(imageInput)"
+                                    [hidden]="true">  
+                                </label>
+                            </div>  
+                        </div>
+
                     <form [formGroup]="editUser" (ngSubmit)="editDisplayName()">
                         <div *ngIf="!currentlyEditingDisplayName; else EditDisplayName">
-                            <h1 class="display-4">{{user.displayName}}
+                            <h1 class="display-4"><span *ngIf="user.displayName">{{user.displayName}}</span><span *ngIf="!user.displayName">{{user.firstName}} {{user.lastName}}</span>
                                 <button *ngIf="currentUserIsProfileUser()" class="edit-save" mat-icon-button (click)="editingDisplayName(true)" title="Update Display Name">
                                     <mat-icon>mode_edit</mat-icon>
                                 </button>
@@ -48,7 +44,7 @@
                     
                     <form [formGroup]="editUser" (ngSubmit)="editTagLine()">
                         <div *ngIf="!currentlyEditingTagLine; else EditTagLine">
-                            <p class="lead">"{{user.tagLine}}"
+                            <p class="lead"><span *ngIf="user.tagLine">"{{user.tagLine}}"</span><span *ngIf="!user.tagLine">No tag line...</span>
                                 <button *ngIf="currentUserIsProfileUser()" class="edit-save" mat-icon-button (click)="editingTagLine(true)" title="Update Tag Line">
                                     <mat-icon>mode_edit</mat-icon>
                                 </button>
@@ -96,7 +92,7 @@
                 <h3>About {{user.displayName}}:</h3>
                 <form [formGroup]="editUser" (ngSubmit)="editBiography()">
                     <div *ngIf="!currentlyEditingBiography; else EditBiography">
-                        <p class="lead">{{user.biography}}
+                        <p class="lead"><span *ngIf="user.biography">{{user.biography}}</span><span *ngIf="!user.biography">There's nothing here...</span>
                             <button *ngIf="currentUserIsProfileUser()" class="edit-save" mat-icon-button (click)="editingBiography(true)" title="Update Tag Line">
                                 <mat-icon>mode_edit</mat-icon>
                             </button>

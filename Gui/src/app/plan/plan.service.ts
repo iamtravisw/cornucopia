@@ -19,6 +19,12 @@ export class PlanService {
     })
   }
 
+  tabIndex = 0;
+
+  setTabIndex(index: number){
+    this.tabIndex = index;
+  }
+
   getAllIngredientsForUser(userId: number) {
     return this.http.get(this.BaseUri + '/api/ingredient/retrieve/all/' + userId)
   }
@@ -27,16 +33,16 @@ export class PlanService {
     return this.http.get(this.BaseUri + '/api/ingredient/units')
   }
 
-  addIngredient(ingredientForm: any) {
+  addIngredient(ingredientForm: any, image: any) {
     const ingredient: Ingredient = {
       ingredientName: ingredientForm.value.ingredientName,
       atHome: ingredientForm.value.atHome,
-      imageUrl: ingredientForm.value.imageUrl,
+      imageUrl: image,
       quantity: ingredientForm.value.quantity,
       unit: ingredientForm.value.unit,
       warningLow: ingredientForm.value.warningLow,
       note: ingredientForm.value.note,
-      user: {userId: this.userId}
+      user: {userId: this.userId} 
     };
     return this.http.post(this.BaseUri + '/api/ingredient/add', ingredient)
   }

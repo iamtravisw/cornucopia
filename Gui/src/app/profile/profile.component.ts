@@ -3,11 +3,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../models/user-model';
 import { LoadingService } from '../util/loading.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ImageService } from '../util/image.service';
+import { Ingredient } from '../models/ingredient-model';
 
 class ImageSnippet {
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) { }
 }
 
 @Component({
@@ -17,11 +18,13 @@ class ImageSnippet {
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private authService: AuthService,  private fb: FormBuilder, private loadingService: LoadingService, private activatedRoute: ActivatedRoute, private router: Router, private imageService: ImageService) { 
+  constructor(private authService: AuthService, private fb: FormBuilder, private loadingService: LoadingService, private activatedRoute: ActivatedRoute, private router: Router, private imageService: ImageService) {
     activatedRoute.params.subscribe(params => {
       this.userName = params['userName'];
     });
   }
+
+  ingredient!: Ingredient;
 
   userName = "";
   currentUserId = +localStorage.getItem('UserId')!;
@@ -43,9 +46,9 @@ export class ProfileComponent implements OnInit {
 
   editUser = this.fb.group(
     {
-      displayName :['', Validators.required],
-      tagLine :['', Validators.required],
-      biography :['', Validators.required]
+      displayName: ['', Validators.required],
+      tagLine: ['', Validators.required],
+      biography: ['', Validators.required]
 
     }
   );
@@ -58,11 +61,11 @@ export class ProfileComponent implements OnInit {
   imageInput!: ElementRef;
 
   selectedFile: ImageSnippet = new ImageSnippet("", new File([], ""));
-  
+
 
   ngOnInit(): void {
     this.authService.getUserByUserName(this.userName).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.loadingService.isLoading = true;
         this.user = res;
         this.editUser.patchValue({
@@ -73,16 +76,16 @@ export class ProfileComponent implements OnInit {
         })
         this.loadingService.isLoading = false;
       },
-      (err:any) => {
+      (err: any) => {
         console.log(err);
         this.loadingService.isLoading = false;
-    });
+      });
 
     this.router.events.subscribe((event) => {
-      if(event) {
+      if (event) {
         this.loadingService.isLoading = true;
         this.authService.getUserById(this.currentUserId).subscribe(
-          (res:any) => {
+          (res: any) => {
             this.user = res;
             this.editUser.patchValue({
               displayName: this.user.displayName,
@@ -91,80 +94,80 @@ export class ProfileComponent implements OnInit {
               userImageUrl: this.user.userImageUrl
             })
           },
-          (err:any) => {
+          (err: any) => {
             console.log(err);
-        });
+          });
         this.loadingService.isLoading = false;
       }
     });
   }
 
-  currentUserIsProfileUser(){
-    if(this.user.userId === this.currentUserId){
+  currentUserIsProfileUser() {
+    if (this.user.userId === this.currentUserId) {
       return true;
     } else {
       return false;
     }
   }
 
-  editingDisplayName(isEditing: boolean){
+  editingDisplayName(isEditing: boolean) {
     this.currentlyEditingDisplayName = isEditing;
     return this.currentlyEditingDisplayName;
   }
 
-  editingTagLine(isEditing: boolean){
+  editingTagLine(isEditing: boolean) {
     this.currentlyEditingTagLine = isEditing;
     return this.currentlyEditingTagLine;
   }
 
-  editingBiography(isEditing: boolean){
+  editingBiography(isEditing: boolean) {
     this.currentlyEditingBiography = isEditing;
     return this.currentlyEditingBiography;
   }
 
-  editDisplayName(){
+  editDisplayName() {
     this.editUser.value.tagLine = this.user.tagLine;
     this.editUser.value.biography = this.user.biography;
     this.editUser.value.userImageUrl = this.user.userImageUrl;
     this.authService.editUser(this.editUser).subscribe(
-      (res:any) => {
-        this.user.displayName = this.editUser.value.displayName; 
+      (res: any) => {
+        this.user.displayName = this.editUser.value.displayName;
       },
-      (err:any) => {
+      (err: any) => {
         console.log(err);
-    });
+      });
     this.editingDisplayName(false);
   }
 
-  editTagLine(){
+  editTagLine() {
     this.editUser.value.displayName = this.user.displayName;
     this.editUser.value.biography = this.user.biography;
     this.editUser.value.userImageUrl = this.user.userImageUrl;
     this.authService.editUser(this.editUser).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.user.tagLine = this.editUser.value.tagLine;
       },
-      (err:any) => {
+      (err: any) => {
         console.log(err);
-    });
+      });
     this.editingTagLine(false);
   }
 
-  editBiography(){
+  editBiography() {
     this.editUser.value.displayName = this.user.displayName;
     this.editUser.value.tagLine = this.user.tagLine;
     this.editUser.value.userImageUrl = this.user.userImageUrl;
     this.authService.editUser(this.editUser).subscribe(
-      (res:any) => {
+      (res: any) => {
         this.user.biography = this.editUser.value.biography;
       },
-      (err:any) => {
+      (err: any) => {
         console.log(err);
-    });
+      });
     this.editingBiography(false);
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
     location.reload();
   }
@@ -176,16 +179,16 @@ export class ProfileComponent implements OnInit {
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.imageService.uploadImage(this.selectedFile.file).subscribe(
-        (res:any) => {
-        this.user.userImageUrl = res.userImageUrl;
-        this.loadingService.isLoading = false;
+      this.imageService.uploadProfileImage(this.selectedFile.file).subscribe(
+        (res: any) => {
+          this.user.userImageUrl = res.userImageUrl;
+          this.loadingService.isLoading = false;
         },
-        (err:any) => {
-        console.log(err);
-        this.loadingService.isLoading = false;
+        (err: any) => {
+          console.log(err);
+          this.loadingService.isLoading = false;
         })
-        
+
     });
     reader.readAsDataURL(file);
     this.imageInput.nativeElement.value = "";

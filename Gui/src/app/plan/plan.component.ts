@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTabGroup } from '@angular/material/tabs';
 import { Ingredient } from '../models/ingredient-model';
 import { Meal } from '../models/meal-model';
 import { PlanService } from './plan.service';
@@ -20,9 +21,18 @@ export class PlanComponent implements OnInit {
 
   constructor(private planService: PlanService) {}
 
+  @ViewChild("tabGroup", { static: false }) tabGroup!: MatTabGroup;
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.ingredients.filter = filterValue.trim().toLowerCase();
+  }
+
+  switchTabs(tabIndex: number) {
+    const tabGroup = this.tabGroup;
+    if (!tabGroup || !(tabGroup instanceof MatTabGroup)) return;
+    const tabCount = tabGroup._tabs.length;
+    tabGroup.selectedIndex = (tabGroup.selectedIndex! + tabIndex) % tabCount;
   }
   
   ngOnInit(): void {
@@ -62,5 +72,10 @@ export class PlanComponent implements OnInit {
 
   
     this.displayedColumns = ['ingredientName', 'atHome', "quantity"];
+  }
+
+  ngAfterViewInit(){
+    this.switchTabs(this.planService.tabIndex);
+    this.planService.setTabIndex(0);
   }
 }
