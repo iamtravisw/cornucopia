@@ -71,7 +71,7 @@ export class PlanComponent implements OnInit {
     ];
 
   
-    this.displayedColumns = ['ingredientName', 'atHome', "quantity"];
+    this.displayedColumns = ['ingredientName', "quantity"];
   }
 
   ngAfterViewInit(){

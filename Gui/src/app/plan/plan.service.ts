@@ -36,7 +36,6 @@ export class PlanService {
   addIngredient(ingredientForm: any, image: any) {
     const ingredient: Ingredient = {
       ingredientName: ingredientForm.value.ingredientName,
-      atHome: ingredientForm.value.atHome,
       imageUrl: image,
       quantity: ingredientForm.value.quantity,
       unit: ingredientForm.value.unit,

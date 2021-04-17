@@ -4,7 +4,6 @@ export class Ingredient {
 
     ingredientId?: number;
     ingredientName: string;
-    atHome: Boolean;
     imageUrl: string;
     quantity: number;
     unit: string;
@@ -15,7 +14,6 @@ export class Ingredient {
     constructor() {
         this.ingredientId = 0;
         this.ingredientName = "";
-        this.atHome = false;
         this.imageUrl = "";
         this.quantity = 0;
         this.unit = "";
