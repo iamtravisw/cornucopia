@@ -4,7 +4,6 @@
     background-color: rgb(255, 255, 255);
 }
 
-  
 .mat-card-image {
     max-height: 100%;
 }
@@ -22,3 +21,7 @@
     font-size: 18px;
     vertical-align: text-top;
 }
+
+.nowrap {
+    white-space: nowrap;
+  }

@@ -19,8 +19,6 @@ public class Ingredient {
 
     private String ingredientName;
 
-    private Boolean atHome;
-
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)

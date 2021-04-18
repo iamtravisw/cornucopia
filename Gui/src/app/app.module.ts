@@ -38,6 +38,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingService } from './util/loading.service';
 import { ImageService } from './util/image.service';
+import { EditIngredientComponent } from './edit-content/ingredient/edit-ingredient/edit-ingredient.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ImageService } from './util/image.service';
     LoginComponent,
     RegisterComponent,
     IngredientComponent,
+    EditIngredientComponent,
   ],
   imports: [
     BrowserModule,

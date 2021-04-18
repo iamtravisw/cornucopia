@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTabGroup } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 import { Ingredient } from '../models/ingredient-model';
 import { Meal } from '../models/meal-model';
 import { PlanService } from './plan.service';
@@ -19,7 +20,7 @@ export class PlanComponent implements OnInit {
   displayedColumns: any;
   userId = +localStorage.getItem('UserId')!;
 
-  constructor(private planService: PlanService) {}
+  constructor(private planService: PlanService, private router: Router) {}
 
   @ViewChild("tabGroup", { static: false }) tabGroup!: MatTabGroup;
 
@@ -40,7 +41,6 @@ export class PlanComponent implements OnInit {
     this.planService.getAllIngredientsForUser(this.userId).subscribe(
       (res:any) => {
         this.ingredients = new MatTableDataSource(res);
-        console.log(res);
       },
       (err:any) => {
         console.log(err);
@@ -72,6 +72,11 @@ export class PlanComponent implements OnInit {
 
   
     this.displayedColumns = ['ingredientName', "quantity"];
+  }
+
+  editRow(row: any){
+    this.planService.setRowToEdit(row);
+    this.router.navigate(['/edit/ingredient']);
   }
 
   ngAfterViewInit(){

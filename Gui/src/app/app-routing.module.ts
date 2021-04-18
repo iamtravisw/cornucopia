@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IngredientComponent } from './add-content/ingredient/ingredient.component';
 import { AuthGuard } from './auth/auth.guard';
+import { EditIngredientComponent } from './edit-content/ingredient/edit-ingredient/edit-ingredient.component';
 
 import { FeedComponent } from './feed/feed.component';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'whats-hot', component: WhatsHotComponent, canActivate:[AuthGuard] },
   { path: 'profile/:userName', component: ProfileComponent, canActivate:[AuthGuard] },
   { path: 'add/ingredient', component: IngredientComponent, canActivate:[AuthGuard] },
+  { path: 'edit/ingredient', component: EditIngredientComponent, canActivate:[AuthGuard] },
  
 ];
 
