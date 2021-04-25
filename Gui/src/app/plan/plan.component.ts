@@ -39,6 +39,7 @@ export class PlanComponent implements OnInit {
 
     this.planService.getAllIngredientsForUser(this.userId).subscribe(
       (res:any) => {
+        console.log(res)
         this.ingredients = new MatTableDataSource(res);
       },
       (err:any) => {
@@ -55,7 +56,7 @@ export class PlanComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.switchTabs(this.planService.tabIndex);
+    this.switchTabs(this.planService.tabIndex)
     this.planService.setTabIndex(0);
   }
 }

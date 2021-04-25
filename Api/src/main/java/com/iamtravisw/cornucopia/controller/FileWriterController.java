@@ -9,7 +9,6 @@ import com.iamtravisw.cornucopia.model.Ingredient;
 import com.iamtravisw.cornucopia.model.User;
 import com.iamtravisw.cornucopia.repository.IngredientRepository;
 import com.iamtravisw.cornucopia.repository.UserRepository;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
-
 import org.apache.commons.io.FilenameUtils;
 
 @RestController

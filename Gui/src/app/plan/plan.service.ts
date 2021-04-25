@@ -66,8 +66,7 @@ export class PlanService {
   }
 
   deleteIngredient(id: number) {
-    console.log(id)
-    return this.http.delete(this.BaseUri + '/api/ingredient/delete/'+id, this.httpOptions)
+    return this.http.delete(this.BaseUri + '/api/ingredient/delete/'+id)
   }
 
 }

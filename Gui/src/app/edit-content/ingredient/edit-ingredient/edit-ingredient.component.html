@@ -2,7 +2,7 @@
     <br>
     <mat-card>
     <div class="text-center mx-auto">
-        <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="ingredientForm">
 
             <div class="row">
                 <div class="text-center col-8 mx-auto">
@@ -45,7 +45,7 @@
 
                 <mat-form-field class="col-4">
                     <mat-label>Quantity</mat-label>
-                    <input formControlName="quantity" placeholder="25" matInput>
+                    <input formControlName="quantity" placneholder="25" matInput>
                 </mat-form-field>
 
                 <mat-form-field class="col-4">

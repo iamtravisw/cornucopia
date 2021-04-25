@@ -60,59 +60,68 @@ export class EditIngredientComponent implements OnInit {
 
   ngAfterViewInit(){
     if(!this.ingredient){
-      this.planService.setTabIndex(3);
-      this.router.navigate(['/plan']);
       this.ingredientForm.reset();
+
+      this.router.navigate(["/plan"]).then(()=>{
+        this.planService.setTabIndex(3);
+      });
     }
   }
 
   onSubmit(){
-    this.planService.editIngredient(this.ingredientForm, this.currentImage, this.ingredient.ingredientId!).subscribe(
+    this.loadingService.isLoading = true;
+    this.imageService.uploadIngredientImage(this.selectedFile.file).subscribe(
       (res:any) => {
-        this.planService.setTabIndex(3);
-        this.router.navigate(['/plan']);
-        this.ingredientForm.reset();
+        this.currentImage = res.imageUrl;
+        this.planService.editIngredient(this.ingredientForm, this.currentImage, this.ingredient.ingredientId!).subscribe(
+          (res:any) => {
+            this.ingredientForm.reset();
+            this.router.navigate(["/plan"]).then(()=>{
+              this.planService.setTabIndex(3);
+            });
+          },
+          (err:any) => {
+            console.log(err);
+          }
+        );
+        this.loadingService.isLoading = false;
       },
       (err:any) => {
         console.log(err);
-      }
-    );
+        this.loadingService.isLoading = false;
+    });
   }
 
   deleteIngredient(){
+    this.loadingService.isLoading = true;
     this.planService.deleteIngredient(this.ingredient.ingredientId!).subscribe(
       (res:any) => {
-        this.planService.setTabIndex(3);
-        this.router.navigate(['/plan']);
+        this.loadingService.isLoading = false;
         this.ingredientForm.reset();
+        this.router.navigate(["/plan"]).then(()=>{
+          this.planService.setTabIndex(3);
+        });
       },
       (err:any) => {
         console.log(err);
-      }
+        this.loadingService.isLoading = false;
+      }   
     );
   }
 
   goBack(){
-    this.planService.setTabIndex(3);
-    this.router.navigate(['/plan']);
     this.ingredientForm.reset();
+    this.router.navigate(["/plan"]).then(()=>{
+      this.planService.setTabIndex(3);
+    });
   }
 
   processFile(imageInput: any) {
-    this.loadingService.isLoading = true;
     const file: File = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.imageService.uploadIngredientImage(this.selectedFile.file, this.ingredient.ingredientId).subscribe(
-        (res:any) => {
-        this.currentImage = res.imageUrl;
-        this.loadingService.isLoading = false;
-        },
-        (err:any) => {
-        console.log(err);
-        this.loadingService.isLoading = false;
-        })
+      this.currentImage = this.selectedFile.src;
     });
     reader.readAsDataURL(file);
     this.imageInput.nativeElement.value = "";

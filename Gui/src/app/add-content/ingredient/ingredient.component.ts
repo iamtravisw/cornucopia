@@ -56,9 +56,10 @@ export class IngredientComponent implements OnInit {
         this.currentImage = res.imageUrl;
         this.planService.addIngredient(this.ingredientForm, this.currentImage).subscribe(
           (res:any) => {
-            this.planService.setTabIndex(3);
-            this.router.navigate(['/plan']);
             this.ingredientForm.reset();
+            this.router.navigate(["/plan"]).then(()=>{
+              this.planService.setTabIndex(3);
+            });
           },
           (err:any) => {
             console.log(err);
