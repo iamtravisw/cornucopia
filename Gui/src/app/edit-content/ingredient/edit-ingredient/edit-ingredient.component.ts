@@ -92,13 +92,19 @@ export class EditIngredientComponent implements OnInit {
     );
   }
 
+  goBack(){
+    this.planService.setTabIndex(3);
+    this.router.navigate(['/plan']);
+    this.ingredientForm.reset();
+  }
+
   processFile(imageInput: any) {
     this.loadingService.isLoading = true;
     const file: File = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.imageService.uploadIngredientImage(this.selectedFile.file).subscribe(
+      this.imageService.uploadIngredientImage(this.selectedFile.file, this.ingredient.ingredientId).subscribe(
         (res:any) => {
         this.currentImage = res.imageUrl;
         this.loadingService.isLoading = false;

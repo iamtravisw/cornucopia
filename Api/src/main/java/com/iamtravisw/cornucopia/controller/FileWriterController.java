@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -42,7 +43,7 @@ public class FileWriterController {
 
     @PostMapping("/profile/{userId}")
     @ResponseBody
-    public ResponseEntity<?> addProfilePhoto(@PathVariable Long userId, @RequestParam("file")MultipartFile file) throws IOException {
+    public ResponseEntity<?> addEditProfilePhoto(@PathVariable Long userId, @RequestParam("file")MultipartFile file) throws IOException {
         User storedUser = userRepository.findByUserId(userId);
         String fileName = "profile_userId-"+userId+"_"+date+"_"+file.getOriginalFilename();
         BlobId blobId = BlobId.of(bucket, fileName);
@@ -68,13 +69,30 @@ public class FileWriterController {
         return ResponseEntity.status(HttpStatus.OK).body(storedUser);
     }
 
-    @PostMapping("/ingredient/{userId}")
+    @PostMapping("/ingredient/{ingredientId}")
     @ResponseBody
-    public ResponseEntity<?> addIngredientPhoto(@PathVariable Long userId, @RequestParam("file")MultipartFile file) throws IOException {
-        String fileName = "ingredient_userId-"+userId+"_"+date+"_"+file.getOriginalFilename();
+    public ResponseEntity<?> addEditIngredientPhoto(@PathVariable Long ingredientId, @RequestParam("file")MultipartFile file) throws IOException {
+        Ingredient storedIngredient = null;
+        String fileName = "ingredient_"+date+"_"+file.getOriginalFilename();
         BlobId blobId = BlobId.of(bucket, fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
         byte[] data = file.getBytes();
+        if(ingredientId != 0) {
+            storedIngredient = ingredientRepository.findByIngredientId(ingredientId);
+
+            if(storedIngredient.getImageUrl() != null){
+                String savedFileName = FilenameUtils.getName(storedIngredient.getImageUrl());
+                BlobId blobIdToDelete = BlobId.of(bucket, savedFileName);
+                try {
+                    storage.delete(blobIdToDelete);
+                } catch(Exception e) {
+                    System.out.println(e);
+                }
+                storedIngredient.setImageUrl(googleStoragePath+fileName);
+                storedIngredient.setModDate(new Date());
+                ingredientRepository.save(storedIngredient);
+            }
+        }
         try {
             storage.create(blobInfo, data);
         } catch(Exception e) {

@@ -7,30 +7,7 @@
         Meals
       </ng-template>
       Information about your meals.
-    <!--
-      <div class="container">
-        <mat-card *ngFor="let meal of meals" style="margin-top: 5px; margin-bottom: 5px;">
-          <div class="container">
-            <div class="row">
-              <div class="col-3">
-                <img style="margin-top: 4px;" mat-card-image src="{{meal.imageUrl}}" alt="{{meal.imageCaption">
-              </div>
-              <div class="col-9">
-                <mat-card-title>
-                  {{meal.title | slice:0:20}}<span *ngIf="meal.title.length > 20">...</span>
-                </mat-card-title>
-                <mat-card-content>
-                  {{meal.content | slice:0:99}}<span *ngIf="meal.content.length > 99">...</span>
-                </mat-card-content>
-                <mat-card-subtitle style="margin-top: -15px;">
-                  {{meal.details}}
-                </mat-card-subtitle>
-              </div>
-            </div>
-          </div>
-        </mat-card>
-      </div>
-    -->
+  
     </mat-tab>
 
     <!-- Foods -->
@@ -61,6 +38,14 @@
               <input matInput (keyup)="applyFilter($event)" placeholder="Ex. pepper" #input>
             </mat-form-field>
             <table mat-table [dataSource]="ingredients" class="col-12">
+
+              <ng-container matColumnDef="imageUrl">
+                <th mat-header-cell *matHeaderCellDef> Image </th>
+                <td mat-cell *matCellDef="let element">
+                  <img *ngIf="element.imageUrl" src="{{element.imageUrl}}" alt="{{element.ingredientName}}" height=25 width=25>
+                  <img *ngIf="!element.imageUrl" src="../../assets/no_image.png" alt="{{element.ingredientName}}" height=25 width=25>
+                </td>
+              </ng-container>
 
 
               <ng-container matColumnDef="ingredientName">

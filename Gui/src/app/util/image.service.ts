@@ -17,10 +17,12 @@ export class ImageService {
     return this.http.post(this.BaseUri+'/profile/'+userId, formData);
   }
 
-  uploadIngredientImage(image: File){
-    let userId: number = +localStorage.getItem('UserId')!
+  uploadIngredientImage(image: File, ingredientId?: number){
     const formData = new FormData();
     formData.append('file', image);
-    return this.http.post(this.BaseUri+'/ingredient/'+userId, formData);
+    if(ingredientId){
+      return this.http.post(this.BaseUri+'/ingredient/'+ingredientId, formData);
+    }
+    return this.http.post(this.BaseUri+'/ingredient/'+0, formData);
   }
 }

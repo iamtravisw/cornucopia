@@ -50,33 +50,33 @@ export class IngredientComponent implements OnInit {
   }
 
   onSubmit(){
-    this.planService.addIngredient(this.ingredientForm, this.currentImage).subscribe(
+    this.loadingService.isLoading = true;
+    this.imageService.uploadIngredientImage(this.selectedFile.file).subscribe(
       (res:any) => {
-        this.planService.setTabIndex(3);
-        this.router.navigate(['/plan']);
-        this.ingredientForm.reset();
+        this.currentImage = res.imageUrl;
+        this.planService.addIngredient(this.ingredientForm, this.currentImage).subscribe(
+          (res:any) => {
+            this.planService.setTabIndex(3);
+            this.router.navigate(['/plan']);
+            this.ingredientForm.reset();
+          },
+          (err:any) => {
+            console.log(err);
+          });
+        this.loadingService.isLoading = false;
       },
       (err:any) => {
         console.log(err);
-      }
-    );
+        this.loadingService.isLoading = false;
+    });
   }
   
   processFile(imageInput: any) {
-    this.loadingService.isLoading = true;
     const file: File = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.imageService.uploadIngredientImage(this.selectedFile.file).subscribe(
-        (res:any) => {
-        this.currentImage = res.imageUrl;
-        this.loadingService.isLoading = false;
-        },
-        (err:any) => {
-        console.log(err);
-        this.loadingService.isLoading = false;
-        })
+      this.currentImage = this.selectedFile.src;
     });
     reader.readAsDataURL(file);
     this.imageInput.nativeElement.value = "";
