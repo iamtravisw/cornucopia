@@ -9,7 +9,7 @@
       <span mat-line>Add a new food to your saved foods</span>
     </a>
   
-    <a mat-list-item (click)="openLink($event)">
+    <a mat-list-item (click)="openLink($event)" routerLink="/add/recipe">
       <span mat-line>New Recipe</span>
       <span mat-line>Add a new recipe to your book</span>
     </a>
@@ -17,6 +17,7 @@
     <a mat-list-item (click)="openLink($event)" routerLink="/add/ingredient">
       <span mat-line>New Ingredient</span>
       <span mat-line>Add new ingredients to your pantry</span>
+      
     </a>
 
     <!-- Replace final mat-list spacing with CSS in future -->

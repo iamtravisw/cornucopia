@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Ingredient } from 'src/app/models/ingredient-model';
 import { PlanService } from 'src/app/plan/plan.service';
 import { ImageService } from 'src/app/util/image.service';
 import { LoadingService } from 'src/app/util/loading.service';

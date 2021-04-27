@@ -39,6 +39,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingService } from './util/loading.service';
 import { ImageService } from './util/image.service';
 import { EditIngredientComponent } from './edit-content/ingredient/edit-ingredient/edit-ingredient.component';
+import { RecipeComponent } from './add-content/recipe/recipe.component';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +58,7 @@ import { EditIngredientComponent } from './edit-content/ingredient/edit-ingredie
     RegisterComponent,
     IngredientComponent,
     EditIngredientComponent,
+    RecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,8 @@ import { EditIngredientComponent } from './edit-content/ingredient/edit-ingredie
     MatAutocompleteModule,
     MatTableModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDividerModule
   ],
   providers: [AuthService, LoadingService, ImageService],
   bootstrap: [AppComponent]

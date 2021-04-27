@@ -20,7 +20,10 @@ public class Recipe {
 
     private String name;
 
+    private Cuisine cuisine;
+
     @OneToMany
+
     private List<Ingredient> ingredients;
 
     private String imageUrl;
