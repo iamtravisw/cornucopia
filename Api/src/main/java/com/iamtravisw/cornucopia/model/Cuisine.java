@@ -1,30 +1,137 @@
 package com.iamtravisw.cornucopia.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+public enum Cuisine {
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+    AINU("Ainu"),
+    ALBANIAN("Albanian"),
+    ARGENTINE("Argentine"),
+    ANDHRA("Andhra"),
+    AMERICAN("American"),
+    ANGLOINDIAN("Anglo-Indian"),
+    ARAB("Arab"),
+    ARMENIAN("Armenian"),
+    ASSYRIAN("Assyrian"),
+    AWADHI("Awadhi"),
+    AZERBAIJANI("Azerbaijani"),
+    BALOCHI("Balochi"),
+    BASHKIR("Bashkir"),
+    BBQ("Barbecue"),
+    BELARUSIAN("Belarusian"),
+    BANGLADESHI("Bangladeshi"),
+    BENGALI("Bengali"),
+    BERBER("Berber"),
+    BRAZILIAN("Brazilian"),
+    BRITISH("British"),
+    BUDDHIST("Buddhist"),
+    BULGARIAN("Bulgarian"),
+    CAJUN("Cajun"),
+    CANTONESE("Cantonese"),
+    CARIBBEAN("Caribbean"),
+    CHECHEN("Chechen"),
+    CHINESE("Chinese"),
+    ISLAMIC("Islamic"),
+    CIRCASSIAN("Circassian"),
+    CRIMEANTARTARS("Crimean Tartars"),
+    CYPRIOT("Cypriot"),
+    CZECH("Czech"),
+    DANISH("Danish"),
+    EGYPTIAN("Egyptian"),
+    ENGLISH("English"),
+    ETHIOPIAN("Ethiopian"),
+    ERITREAN("Eritrean"),
+    ESTONIAN("Estonian"),
+    FRENCH("French"),
+    FILIPINO("Filipino"),
+    GEORGIAN("Georgian"),
+    GERMAN("German"),
+    GOAN("Goan"),
+    CATHOLIC("Catholic"),
+    GREEK("Greek"),
+    GUJARATI("Gujarati"),
+    HYDERABAD("Hyderabad"),
+    INDIAN("Indian"),
+    SINGAPOREAN("Singaporean"),
+    INUIT("Inuit"),
+    IRISH("Irish"),
+    ITALIAN("Italian"),
+    JAMAICAN("Jamaican"),
+    JAPANESE("Japanese"),
+    JEWISH("Jewish"),
+    ISRAELI("Israeli"),
+    KARNATAKA("Karnataka"),
+    KAZAKH("Kazakh"),
+    KERALITE("Keralite"),
+    KOREAN("Korean"),
+    KURDISH("Kurdish"),
+    LAOTIAN("Laotian"),
+    LEBANESE("Lebanese"),
+    LATVIAN("Latvian"),
+    LITHUANIAN("Lithuanian"),
+    CREOLE("Creole"),
+    MAHARASHTRIAN("Maharashtrian"),
+    MANGALOREAN("Mangalorean"),
+    MALAY("Malay"),
+    MALAYSIAN("Malaysian"),
+    MEDITERRANEAN("Mediterranean"),
+    MENNONITE("Mennonite"),
+    MEXICAN("Mexican"),
+    MORDOVIAN("Mordovian"),
+    MUGHAL("Mughal"),
+    NATIVEAMERICAN("Native American"),
+    NEPALESE("Nepalese"),
+    NEWMEXICAN("New Mexican"),
+    ODIA("Odia"),
+    PARSI("Parsi"),
+    PASHTUN("Pashtun"),
+    POLISH("Polish"),
+    PENNSYLVANIADUTCH("Pennsylvania Dutch"),
+    DUTCH("Dutch"),
+    PAKISTANI("Pakistani"),
+    PERANAKAN("Peranakan"),
+    PERSIAN("Persian"),
+    PERUVIAN("Peruvian"),
+    PORTUGUESE("Portuguese"),
+    PUNJABI("Punjabi"),
+    QUEBECOIS("Québécois"),
+    RAJASTHANI("Rajasthani"),
+    ROMANI("Romani"),
+    ROMANIAN("Romanian"),
+    RUSSIAN("Russian"),
+    SAMI("Sami"),
+    SERBIAN("Serbian"),
+    SINDHI("Sindhi"),
+    SLOVAK("Slovak"),
+    SLOVENIAN("Slovenian"),
+    SOMALI("Somali"),
+    SOUTHINDIAN("South Indian"),
+    SOVIET("Soviet"),
+    SPANISH("Spanish"),
+    SRILANKAN("Sri Lankan"),
+    TAIWANESE("Taiwanese"),
+    TEXAN("Texan"),
+    THAI("Thai"),
+    TURKISH("Turkish"),
+    TAMIL("Tamil"),
+    TATAR("Tatar"),
+    UDUPI("Udupi"),
+    UKRAINIAN("Ukrainian"),
+    VIETNAMESE("Vietnamese"),
+    YAMAL("Yamal"),
+    ZAMBIAN("Zambian"),
+    ZANZIBARI("Zanzibari"),
+    FUSION("Fusion"),
+    HAUTE("Haute"),
+    NOUVELLE("Nouvelle"),
+    VEGAN("Vegan"),
+    VEGATARIAN("Vegetarian"),
+    ANCIENT("Ancient"),
+    AZTEC("Aztec"),
+    MAYA("Maya"),
+    MEDIEVAL("Medieval");
 
-//@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-public class Cuisine {
+    public final String label;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long cuisineId;
-
-    private String name;
-
-    private String origin;
-
-    private Date modDate;
-
-    private Date addDate;
-
+    Cuisine(String label) {
+        this.label = label;
+    }
 }

@@ -22,7 +22,7 @@ public class Ingredient {
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
-    private Unit unit;
+    private UnitMeasurement unitMeasurement;
 
     private Double quantity;
 

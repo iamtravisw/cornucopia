@@ -3,7 +3,7 @@ package com.iamtravisw.cornucopia.controller;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.iamtravisw.cornucopia.repository.IngredientRepository;
-import com.iamtravisw.cornucopia.model.Unit;
+import com.iamtravisw.cornucopia.model.UnitMeasurement;
 import com.iamtravisw.cornucopia.model.Ingredient;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +90,7 @@ public class IngredientController {
 
     @GetMapping("/units")
     public ResponseEntity<?> getUnits() {
-        List<Enum> units = Arrays.asList(Unit.values());
+        List<Enum> units = Arrays.asList(UnitMeasurement.values());
         return ResponseEntity.status(HttpStatus.OK).body(units);
     }
 

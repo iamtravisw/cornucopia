@@ -1,6 +1,6 @@
 package com.iamtravisw.cornucopia.model;
 
-public enum Unit {
+public enum UnitMeasurement {
     tsp("TEASPOON"),
     Tbsp("TABLESPOON"),
     c("CUP"),
@@ -20,7 +20,7 @@ public enum Unit {
 
     public final String label;
 
-    Unit(String label) {
+    UnitMeasurement(String label) {
         this.label = label;
     }
 }

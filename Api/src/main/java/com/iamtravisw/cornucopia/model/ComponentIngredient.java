@@ -1,29 +1,33 @@
 package com.iamtravisw.cornucopia.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Component {
+@NoArgsConstructor
+public class ComponentIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long componentId;
+    private long ingredientId;
 
-    private String componentName;
+    private String ingredientName;
+
+    private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    private UnitMeasurement unitMeasurement;
+
+    private Double quantity;
 
     @JoinColumn
-    @OneToMany(cascade=CascadeType.ALL)
-    private List<ComponentIngredient> ingredients;
-
-    @JoinColumn
-    @OneToOne()
+    @OneToOne
     private User user;
 
     private Date modDate;

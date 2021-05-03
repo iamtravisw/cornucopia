@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,11 +22,44 @@ public class Recipe {
 
     private Cuisine cuisine;
 
-    @OneToMany
+    private Double prepTime;
 
-    private List<Ingredient> ingredients;
+    @Enumerated(EnumType.STRING)
+    private UnitTime prepTimeUnits;
+
+    private Double cookTime;
+
+    @Enumerated(EnumType.STRING)
+    private UnitTime cookTimeUnits;
+
+    private Double temp;
+
+    @Enumerated(EnumType.STRING)
+    private UnitTemp tempUnits;
+
+    private String yield;
+
+    @JoinColumn
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Component> components;
+
+    @JoinColumn
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Step> steps;
 
     private String imageUrl;
+
+    private String equipment;
+
+    private String notes;
+
+    @JoinColumn
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Tag> tags;
+
+    @JoinColumn
+    @OneToOne
+    private User user;
 
     private Date modDate;
 
