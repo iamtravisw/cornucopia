@@ -17,12 +17,12 @@ import { WhatsHotComponent } from './whats-hot/whats-hot.component';
 
 const routes: Routes = [
 
+   // Default Route
+   { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   // Unprotected Routes
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
-  // Default Protected Route
-  { path: '', redirectTo: 'profile', pathMatch: 'full' },
 
   // Protected Routes
   { path: 'plan', component: PlanComponent, canActivate:[AuthGuard] },
