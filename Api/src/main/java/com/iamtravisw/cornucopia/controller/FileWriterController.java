@@ -32,9 +32,9 @@ public class FileWriterController {
     @Autowired
     private IngredientRepository ingredientRepository;
 
-    private final String bucket = "cornucopia-app";
-    private final String googleStoragePath = "https://storage.googleapis.com/cornucopia-app/";
-    private final String pattern = "yyyyMMdd-HHmmss";
+    private final String bucket = "cornucopia-assets";
+    private final String googleStoragePath = "https://storage.googleapis.com/cornucopia-assets/";
+    private final String pattern = "yyyy-MM-dd-HHmmss";
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     private final String date = simpleDateFormat.format(new Date());
 

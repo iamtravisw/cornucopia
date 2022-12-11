@@ -41,7 +41,7 @@ public class Recipe {
 
     @JoinColumn
     @OneToMany(cascade=CascadeType.ALL)
-    private List<Component> components;
+    private List<Ingredient> ingredients;
 
     @JoinColumn
     @OneToMany(cascade=CascadeType.ALL)

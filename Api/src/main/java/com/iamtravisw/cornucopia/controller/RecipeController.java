@@ -1,14 +1,15 @@
 package com.iamtravisw.cornucopia.controller;
 
 import com.google.cloud.storage.Storage;
-import com.iamtravisw.cornucopia.model.Ingredient;
-import com.iamtravisw.cornucopia.model.Recipe;
+import com.iamtravisw.cornucopia.model.*;
 import com.iamtravisw.cornucopia.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,25 @@ public class RecipeController {
     @Autowired
     private RecipeRepository recipeRepository;
 
+    @GetMapping("/cuisines")
+    public ResponseEntity<?> getCuisines() {
+        List<Enum> cuisines = Arrays.asList(Cuisine.values());
+        return ResponseEntity.status(HttpStatus.OK).body(cuisines);
+    }
+
+    @GetMapping("/temps")
+    public ResponseEntity<?> getTemps() {
+        List<Enum> temps = Arrays.asList(UnitTemp.values());
+        return ResponseEntity.status(HttpStatus.OK).body(temps);
+    }
+
+    @GetMapping("/times")
+    public ResponseEntity<?> getTimes() {
+        List<Enum> times = Arrays.asList(UnitTime.values());
+        return ResponseEntity.status(HttpStatus.OK).body(times);
+    }
+
+    /*
     @PostMapping("/add")
     public ResponseEntity<?> saveRecipe(@Validated @RequestBody Recipe recipe) {
         Date date = new Date();
@@ -51,4 +71,5 @@ public class RecipeController {
         return ResponseEntity.status(HttpStatus.OK).body(storedRecipe);
     }
 
+    */
 }
