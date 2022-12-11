@@ -30,12 +30,24 @@ export class PlanService {
     this.rowToEdit = row;
   }
 
-  getAllIngredientsForUser(userId: number) {
-    return this.http.get(this.BaseUri + '/api/ingredient/retrieve/all/' + userId)
+  getAllIngredientsForUser() {
+    return this.http.get(this.BaseUri + '/api/ingredient/retrieve/all/' + this.userId)
   }
 
   getUnits() {
     return this.http.get(this.BaseUri + '/api/ingredient/units')
+  }
+
+  getCuisines() {
+    return this.http.get(this.BaseUri + '/api/recipe/cuisines')
+  }
+
+  getTemps() {
+    return this.http.get(this.BaseUri + '/api/recipe/temps')
+  }
+
+  getTimes() {
+    return this.http.get(this.BaseUri + '/api/recipe/times')
   }
 
   addIngredient(ingredientForm: any, image: any) {
@@ -43,7 +55,7 @@ export class PlanService {
       ingredientName: ingredientForm.value.ingredientName,
       imageUrl: image,
       quantity: ingredientForm.value.quantity,
-      unit: ingredientForm.value.unit,
+      unitMeasurement: ingredientForm.value.unit,
       warningLow: ingredientForm.value.warningLow,
       note: ingredientForm.value.note,
       user: {userId: this.userId} 
@@ -57,7 +69,7 @@ export class PlanService {
       ingredientName: ingredientForm.value.ingredientName,
       imageUrl: image,
       quantity: ingredientForm.value.quantity,
-      unit: ingredientForm.value.unit,
+      unitMeasurement: ingredientForm.value.unit,
       warningLow: ingredientForm.value.warningLow,
       note: ingredientForm.value.note,
       user: {userId: this.userId} 

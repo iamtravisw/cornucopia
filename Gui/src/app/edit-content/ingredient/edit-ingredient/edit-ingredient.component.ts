@@ -1,3 +1,4 @@
+import { E } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -50,7 +51,7 @@ export class EditIngredientComponent implements OnInit {
     this.ingredientForm.patchValue({
       ingredientName: this.ingredient.ingredientName,
       imageUrl: this.ingredient.imageUrl,
-      unit: this.ingredient.unit,
+      unit: this.ingredient.unitMeasurement,
       quantity: this.ingredient.quantity,
       warningLow: this.ingredient.warningLow,
       note: this.ingredient.note
@@ -72,7 +73,15 @@ export class EditIngredientComponent implements OnInit {
     this.loadingService.isLoading = true;
     this.imageService.uploadIngredientImage(this.selectedFile.file).subscribe(
       (res:any) => {
-        this.currentImage = res.imageUrl;
+
+        // This will make it not change if there's already an image
+        if(this.selectedFile.file.name){
+          this.currentImage = res.imageUrl;
+        } else {
+          this.currentImage == null;
+        }
+
+        console.log(this.currentImage )
         this.planService.editIngredient(this.ingredientForm, this.currentImage, this.ingredient.ingredientId!).subscribe(
           (res:any) => {
             this.ingredientForm.reset();

@@ -1,177 +1,202 @@
 <div class="container">
     <br>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <div class="text-center mx-auto">
-            <div class="row">
-                <div class="text-center col-8 mx-auto">
-                    <label>
+          
+
+          <div class="row">
+            <div class="text-center col-8 mx-auto">
+                <label>
+                    <div *ngIf="currentImage">
+                        <img src="{{currentImage}}" class="img-fluid border border-dark" alt="Ingredient">
+                    </div>
+                    <div *ngIf="!currentImage">
                         <img src="../../assets/no_image.png" class="img-fluid border border-dark" alt="Ingredient">
+                    </div>
+                    <input #imageInput
+                        type="file"
+                        accept="image/*"
+                        (change)="processFile(imageInput)"
+                        [hidden]="true">  
                     </label>
-                </div>
+                </div>  
             </div>
+
+
+        
+
             <br>
             <p class="h4">Add Recipe</p>
         </div>
+
+
+       
 
         <mat-card>
             <p class="h6">Basic Information</p>
 
         <mat-form-field class="col-12">
             <mat-label>Recipe Name</mat-label>
-            <input matInput placeholder="Ex. Cinnamon Rolls">
+            <input formControlName="name" matInput placeholder="Ex. Cinnamon Rolls">
           </mat-form-field>
 
 
           <mat-form-field class="col-12">
             <mat-label>Cuisine Type(s)</mat-label>
-            <mat-select required>
-              <mat-option> American </mat-option>
-              <mat-option> French </mat-option>
+            <mat-select formControlName="cuisine" required>
+              <mat-option *ngFor="let cuisine of cuisines" [value]="cuisine">
+                {{cuisine}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
 
           <mat-form-field class="col-6">
             <mat-label>Prep Time</mat-label>
-            <input matInput placeholder="Ex. 2.4">
+            <input formControlName="prepTime" matInput placeholder="Ex. 2.4">
           </mat-form-field>
 
           <mat-form-field class="col-6">
-            <mat-label>Units</mat-label>
-            <mat-select required>
-              <mat-option> Hours </mat-option>
-              <mat-option> Minutes </mat-option>
-              <mat-option> Seconds </mat-option>
+            <mat-label>Prep Time</mat-label>
+            <mat-select formControlName="prepTimeUnits" required>
+              <mat-option *ngFor="let time of times" [value]="time">
+                {{time}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
+          
 
         <mat-form-field class="col-6">
             <mat-label>Cook Time</mat-label>
-            <input matInput placeholder="Ex. 2.4">
+            <input formControlName="cookTime" matInput placeholder="Ex. 2.4">
           </mat-form-field>
 
           <mat-form-field class="col-6">
-            <mat-label>Units</mat-label>
-            <mat-select required>
-              <mat-option> Hours </mat-option>
-              <mat-option> Minutes </mat-option>
-              <mat-option> Seconds </mat-option>
+            <mat-label>Cook Time</mat-label>
+            <mat-select formControlName="cookTimeUnits" required>
+              <mat-option *ngFor="let time of times" [value]="time">
+                {{time}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
+
           <mat-form-field class="col-6">
             <mat-label>Temp</mat-label>
-            <input matInput placeholder="Ex. 2.4">
+            <input formControlName="temp" matInput placeholder="Ex. 2.4">
           </mat-form-field>
 
           <mat-form-field class="col-6">
-            <mat-label>Units</mat-label>
-            <mat-select required>
-              <mat-option> FH </mat-option>
-              <mat-option> C </mat-option>
+            <mat-label>Degrees</mat-label>
+            <mat-select formControlName="tempUnits" required>
+              <mat-option *ngFor="let temp of temps" [value]="temp">
+                {{temp}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field class="col-12">
             <mat-label>Yield</mat-label>
-            <input matInput placeholder="Ex. 12 Rolls">
+            <input formControlName="yield" matInput placeholder="Ex. 12 Rolls">
           </mat-form-field>
 
 
         </mat-card>
 
+     
+
         <br>
 
             <div class="row">
                <div class="col-12">
-                <mat-accordion>
-                    <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          Component 1
-                        </mat-panel-title>
-                        <mat-panel-description>
-                          Dough
-                        </mat-panel-description>
-                      </mat-expansion-panel-header>
+
+
+
+
+             
+                  <mat-accordion>
+                      <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <p class="h6">Ingredients:</p>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        
+
+                        
+                        <ng-container formArrayName="components">
+                          <ng-container *ngFor="let componentForm of components.controls; let i = index">
+                          <div [formGroupName]="i">
+
+                        <div class="row">
+
+                         
+                    
+                        <mat-form-field class="col-5">
+                          <mat-label>Ingredient</mat-label>
+                          <mat-select formControlName="ingredientName{{i}}" required>
+                            <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
+                              {{ingredient.ingredientName}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                
+                        <mat-form-field class="col-4">
+                          <mat-label>Unit</mat-label>
+                          <mat-select formControlName="ingredientUnit{{i}}" required>
+                            <mat-option *ngFor="let unit of units" [value]="unit">
+                              {{unit}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        
+                        <mat-form-field class="col-3">
+                          <mat-label>Qty</mat-label>
+                          <input formControlName="ingredientQty{{i}}" matInput placeholder="Ex. 2.4">
+                        </mat-form-field>
+
+            
+                          
+
+                      </div>
+
                       
 
-                      <p class="h6">Ingredients:</p>
-                      <div class="row">
-                  
-                      <mat-form-field class="col-5">
-                        <mat-label>Ingredient</mat-label>
-                        <mat-select required>
-                          <mat-option *ngFor="let unit of units" [value]="unit">
-                            {{unit}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-               
-                      <mat-form-field class="col-4">
-                        <mat-label>Unit</mat-label>
-                        <mat-select required>
-                          <mat-option *ngFor="let unit of units" [value]="unit">
-                            {{unit}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      
-                      <mat-form-field class="col-3">
-                        <mat-label>Qty</mat-label>
-                        <input matInput placeholder="Ex. 2.4">
-                      </mat-form-field>
-                    </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
 
 
-                    <mat-divider></mat-divider>
+                      <mat-divider></mat-divider>
 
-                      <div class="row">
-                  
-                      <mat-form-field class="col-5">
-                        <mat-label>Ingredient</mat-label>
-                        <mat-select required>
-                          <mat-option *ngFor="let unit of units" [value]="unit">
-                            {{unit}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-               
-                      <mat-form-field class="col-4">
-                        <mat-label>Unit</mat-label>
-                        <mat-select required>
-                          <mat-option *ngFor="let unit of units" [value]="unit">
-                            {{unit}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      
-                      <mat-form-field class="col-3">
-                        <mat-label>Qty</mat-label>
-                        <input matInput placeholder="Ex. 2.4">
-                      </mat-form-field>
-                    </div>
-
-                    <mat-divider></mat-divider>
-
-                    <br>
-                    <button class="float-right" mat-raised-button color="primary">New Ingredient</button>
-                    <br><br>
-           
-
-                  
-      
-                      
+                      <br>
+                      <button class="float-right" mat-raised-button color="primary" [disabled]="numOfIngredients > 9" (click)="addNewComponent()">New Ingredient</button>
+                      <br><br>
 
 
+                      </mat-expansion-panel>
+                  </mat-accordion>
 
-                    </mat-expansion-panel>
-                </mat-accordion>
+                  <br>
 
+
+                
+            
+
+                
+         
+                <br><br>
+       
+
+
+                
 
 <br>
 
 
 
+
+<!-- 
 <mat-card>
     <p class="h6">Steps</p>
 
@@ -182,10 +207,11 @@
       </mat-list>
 
 </mat-card>
+  -->
 
 <br>
 
-
+<!-- 
 <mat-card>
     <p class="h6">Additional Information</p>
 
@@ -221,20 +247,25 @@
  
 
 </mat-card>
+-->
 
 <br>
 
 
 
 
+      
 
 
                 <br>
                 <button class="float-right" mat-raised-button color="primary">Save Recipe</button>
                 <br><br>
 
-        
 
                </div>
             </div>
+
+
+             </form>
+           
 </div>

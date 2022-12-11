@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cornucopia-369816",
+  "private_key_id": "6e27056ca48972397190963288aeb8f9017be379",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCSxyWq2jVMRxaO\n4XnWrwXxvVVxqjUMoz4SIZW7HVVPV5aKfHpLc1zSaNpZPxup/IgzA4uV8vfrft7Y\nuroIocwiuMJx76OoWLMjutOfm2C8F1dkUkrrMn8JZdvl7OGju5XKDY8K6f/rhSKd\nqcp6XCFmmtdVFtpuLoEbsIRwZ+ShxAczsJDsn81WylDdiKGzqKYSZJBvVcG96iEG\nVyXAdxaMatERqtc55IQWRt3+XdgBEvV3mMdTozgSGl5pCmizsn/7nJHqdd4/QYdS\n4Zjv3VZ8IUWd5SsnbmSx5XkbalRdZuYdah5BSlJF1DBW5sd4OTIZuHlmEEowmB5q\ndg5ZBATbAgMBAAECggEAEOtQ3b1yiFznbkfydftN6ZxEFaqjm9XTaV6itmN+unsj\nuMn5hOoC6KQ6izAZncIk5xCBDiNoTaadxIjdufIAqH34uA6CJH05BSTbkRnlkDj2\nk3Ni/HKhLzGlI/9m0Stl7FkcxIrNu9XodBkm5GzrUrsFmGLegfXtXwY9dgGb2sOj\nxnOuPUT1IO2lNlfpmGGoA5nhmVC6XzHt6NKwT0Ytlq4qVkKeHKv2L4fOWmU0K5ud\nKT8P/fM3Q4tpVgumzh9E8KMVuYdqACcmSJwt9AHEyGGf2f7p91BHQrOXjJF6Kbvy\nknICmf1ZgaGVLt56JEaACysofrUV4/5kZ33o5TeBiQKBgQDG+alGJkWlYlIaI6iY\nBcV/vW5NwPX2LsFProYJbylXnVaDODZ8U0kesXxxqRdRsNm1UK2aLEzbuZ5KFtKV\nNcfMYO6D766bDQUQy2w5bOHzFIiOYeuQlq831jOtndhbn2eL36shjZD76HKfqFVa\nebqAht0JeRHCeqtkMIVXI+IVaQKBgQC81+SaKDHIdwtQF0faXOfUZrA+M45q3XIC\no+PYfmy9f523NPfXYA5LicMF1bSjdnBKgl9Q+M2nKNVgOs1xVCGqEXQLatJCAgbW\nviL1Ij5oOn74etOZxz7xqHqrRoC3HNf7dm+06YnPlFwh8McrmbW7fzIhvGFoyTa9\nhG4vuQHrowKBgQCimylA0Mod7AnYnseK5TyPtglMtaLMO01zhta3IwcQON6YgfnV\nBGM/GCDw6hTKh9KDIJme4xE0h67aMWiK09aiKZ0CaX+x6qP3I6cgDuFgO6mVYmSW\nVu5+nSjCe7pytgRzBKjf1MdldoMmAvUt6UkG/C/rK+vdmU4zpItzuTlr8QKBgQCA\ndYgfSXpb+Ibsi3moVAyr0tLO7TlS/qKAo0Xpzk5gNcBukQyLKN9wiRzuCiqgC4Bl\nXvxB043pyQAlPrrj/awMyWScI6U1m7VVPPAAurOjKS+YDc2FTSFHOCmB+yqx5WAS\nwcVJVpgVacGmoOiLgzs5eVP72O6WXlHrZ3ug4QQqawKBgBxvk02hzzfhuuFpPDYQ\nQmVfGTCfSTozPibEmmdO3NnsERHgcWRkTdWb5fNkSUtZgwZkCiqd/wfAms4vK2YG\ndktqtb+R/k9HR4xNccMjYdK8WxUFMTyJKwYDJUaCOy4nvE1RJ1+/ssFen2DANEmK\nR8otm3D285Ek+xcqZqKfLy8i\n-----END PRIVATE KEY-----\n",
+  "client_email": "cornucopia@cornucopia-369816.iam.gserviceaccount.com",
+  "client_id": "101450948783789978385",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cornucopia%40cornucopia-369816.iam.gserviceaccount.com"
+}

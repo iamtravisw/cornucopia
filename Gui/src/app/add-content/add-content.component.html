@@ -1,4 +1,11 @@
 <mat-nav-list>
+    <a mat-list-item (click)="openLink($event)" routerLink="/feed">
+      <span mat-line>New Post</span>
+      <span mat-line>Share your thoughts</span>
+    </a>
+
+    <hr>
+
     <a mat-list-item (click)="openLink($event)">
       <span mat-line>New Meal</span>
       <span mat-line>Build a meal from your foods</span>
@@ -17,7 +24,6 @@
     <a mat-list-item (click)="openLink($event)" routerLink="/add/ingredient">
       <span mat-line>New Ingredient</span>
       <span mat-line>Add new ingredients to your pantry</span>
-      
     </a>
 
     <!-- Replace final mat-list spacing with CSS in future -->

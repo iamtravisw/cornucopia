@@ -17,7 +17,6 @@ export class PlanComponent implements OnInit {
   recipes: Meal[] = [];
   ingredients: any;
   displayedColumns: any;
-  userId = +localStorage.getItem('UserId')!;
 
   constructor(private planService: PlanService, private router: Router) {}
 
@@ -37,7 +36,7 @@ export class PlanComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.planService.getAllIngredientsForUser(this.userId).subscribe(
+    this.planService.getAllIngredientsForUser().subscribe(
       (res:any) => {
         console.log(res)
         this.ingredients = new MatTableDataSource(res);

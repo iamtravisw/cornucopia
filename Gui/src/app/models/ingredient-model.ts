@@ -6,7 +6,7 @@ export class Ingredient {
     ingredientName: string;
     imageUrl: string;
     quantity: number;
-    unit: string;
+    unitMeasurement: string;
     warningLow: number;
     note: string;
     user: User;
@@ -16,7 +16,7 @@ export class Ingredient {
         this.ingredientName = "";
         this.imageUrl = "";
         this.quantity = 0;
-        this.unit = "";
+        this.unitMeasurement = "";
         this.warningLow = 0;
         this.note = "";
         this.user = {};
