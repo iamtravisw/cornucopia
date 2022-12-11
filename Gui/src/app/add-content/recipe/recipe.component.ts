@@ -28,7 +28,7 @@ export class RecipeComponent implements OnInit {
   cuisines: any = [];
   times: any = [];
   temps: any = [];
-  ingredients: any = [];
+  userIngredients: any = [];
   @ViewChild('imageInput')
   imageInput!: ElementRef;
   currentImage: any;
@@ -37,7 +37,7 @@ export class RecipeComponent implements OnInit {
 
 
 
-  componentForm = this.fb.group({
+  ingredientForm = this.fb.group({
     ingredientName0: new FormControl('', [Validators.required]),
     ingredientName1: new FormControl('', [Validators.required]),
     ingredientName2: new FormControl('', [Validators.required]),
@@ -83,18 +83,18 @@ export class RecipeComponent implements OnInit {
       temp :[''],
       tempUnits :[''],
       yield :[''],
-      components: this.fb.array([])
+      ingredients: this.fb.array([])
     }
   );
 
 
-  get components() {
-    return this.recipeForm.controls["components"] as FormArray;
+  get ingredients() {
+    return this.recipeForm.controls["ingredients"] as FormArray;
   }
   
   addNewComponent(){
     this.numOfIngredients++;
-    this.components.push(this.componentForm);
+    this.ingredients.push(this.ingredientForm);
   }
 
 
@@ -206,7 +206,7 @@ export class RecipeComponent implements OnInit {
 
     this.planService.getAllIngredientsForUser().subscribe(
       (res:any) => {
-        this.ingredients = res;
+        this.userIngredients = res;
       },
       (err:any) => {
         console.log(err);
