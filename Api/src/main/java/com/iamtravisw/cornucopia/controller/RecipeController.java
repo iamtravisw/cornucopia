@@ -39,7 +39,7 @@ public class RecipeController {
         return ResponseEntity.status(HttpStatus.OK).body(times);
     }
 
-    /*
+
     @PostMapping("/add")
     public ResponseEntity<?> saveRecipe(@Validated @RequestBody Recipe recipe) {
         Date date = new Date();
@@ -71,5 +71,5 @@ public class RecipeController {
         return ResponseEntity.status(HttpStatus.OK).body(storedRecipe);
     }
 
-    */
+
 }

@@ -43,9 +43,7 @@ public class Recipe {
     @OneToMany(cascade=CascadeType.ALL)
     private List<Ingredient> ingredients;
 
-    @JoinColumn
-    @OneToMany(cascade=CascadeType.ALL)
-    private List<Step> steps;
+    private String instructions;
 
     private String imageUrl;
 

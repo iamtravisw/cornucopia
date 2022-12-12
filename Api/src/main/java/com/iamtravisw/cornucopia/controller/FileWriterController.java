@@ -6,8 +6,10 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.iamtravisw.cornucopia.model.Ingredient;
+import com.iamtravisw.cornucopia.model.Recipe;
 import com.iamtravisw.cornucopia.model.User;
 import com.iamtravisw.cornucopia.repository.IngredientRepository;
+import com.iamtravisw.cornucopia.repository.RecipeRepository;
 import com.iamtravisw.cornucopia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,9 @@ public class FileWriterController {
 
     @Autowired
     private IngredientRepository ingredientRepository;
+
+    @Autowired
+    private RecipeRepository recipeRepository;
 
     private final String bucket = "cornucopia-assets";
     private final String googleStoragePath = "https://storage.googleapis.com/cornucopia-assets/";
@@ -88,6 +93,41 @@ public class FileWriterController {
                 storedIngredient.setImageUrl(googleStoragePath+fileName);
                 storedIngredient.setModDate(new Date());
                 ingredientRepository.save(storedIngredient);
+            }
+        }
+        try {
+            storage.create(blobInfo, data);
+        } catch(Exception e) {
+            ResponseEntity.status(HttpStatus.OK).body(e);
+        }
+        String jsonString = "{\"imageUrl\": \""+googleStoragePath+fileName+"\"}";
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(jsonString);
+        return ResponseEntity.status(HttpStatus.OK).body(actualObj);
+    }
+
+    @PostMapping("/recipe/{recipeId}")
+    @ResponseBody
+    public ResponseEntity<?> addEditRecipePhoto(@PathVariable Long recipeId, @RequestParam("file")MultipartFile file) throws IOException {
+        Recipe storedRecipe = null;
+        String fileName = "recipe_"+date+"_"+file.getOriginalFilename();
+        BlobId blobId = BlobId.of(bucket, fileName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+        byte[] data = file.getBytes();
+        if(recipeId != 0) {
+            storedRecipe = recipeRepository.findByRecipeId(recipeId);
+
+            if(storedRecipe.getImageUrl() != null){
+                String savedFileName = FilenameUtils.getName(storedRecipe.getImageUrl());
+                BlobId blobIdToDelete = BlobId.of(bucket, savedFileName);
+                try {
+                    storage.delete(blobIdToDelete);
+                } catch(Exception e) {
+                    System.out.println(e);
+                }
+                storedRecipe.setImageUrl(googleStoragePath+fileName);
+                storedRecipe.setModDate(new Date());
+                recipeRepository.save(storedRecipe);
             }
         }
         try {
