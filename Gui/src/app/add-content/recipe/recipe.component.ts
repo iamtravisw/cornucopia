@@ -4,14 +4,15 @@ import { Router } from '@angular/router';
 import { PlanService } from 'src/app/plan/plan.service';
 import { ImageService } from 'src/app/util/image.service';
 import { LoadingService } from 'src/app/util/loading.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {COMMA, ENTER, O} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Ingredient } from 'src/app/models/ingredient-model';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
 
-export interface Fruit {
+export interface Tag {
   name: string;
 }
 
@@ -34,8 +35,7 @@ export class RecipeComponent implements OnInit {
   currentImage: any;
   selectedFile: ImageSnippet = new ImageSnippet("", new File([], ""));
   numOfIngredients: number = 0;
-
-
+  recipeIngredients: Ingredient[] = [];
 
   ingredientForm = this.fb.group({
     ingredientName0: new FormControl('', [Validators.required]),
@@ -71,6 +71,7 @@ export class RecipeComponent implements OnInit {
   });
 
 
+
   recipeForm = this.fb.group(
     {
       name :['', Validators.required],
@@ -83,7 +84,11 @@ export class RecipeComponent implements OnInit {
       temp :[''],
       tempUnits :[''],
       yield :[''],
-      ingredients: this.fb.array([])
+      ingredients: this.fb.array([]),
+      instructions :[''],
+      equipment :[''],
+      notes :[''],
+      tags: [''],
     }
   );
 
@@ -92,14 +97,10 @@ export class RecipeComponent implements OnInit {
     return this.recipeForm.controls["ingredients"] as FormArray;
   }
   
-  addNewComponent(){
+  addNewIngredient(){
     this.numOfIngredients++;
     this.ingredients.push(this.ingredientForm);
   }
-
-
-
-
 
   processFile(imageInput: any) {
     const file: File = imageInput.files[0];
@@ -115,55 +116,37 @@ export class RecipeComponent implements OnInit {
 
   panelOpenState = true;
 
-
-
-
-
-
-
-
-
-    /*
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage',
-      'Tomato', 'Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
-
-
-      visible = true;
       selectable = true;
       removable = true;
       addOnBlur = true;
       readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-      fruits: Fruit[] = [
-        {name: 'Lemon'},
-        {name: 'Lime'},
-        {name: 'Apple'},
-      ];
+
+      tags: any = [{name: "recipe"}];
 
       add(event: MatChipInputEvent): void {
         const input = event.input;
         const value = event.value;
     
-        // Add our fruit
+        // Add our tag
         if ((value || '').trim()) {
-          this.fruits.push({name: value.trim()});
+          this.tags.push({name: value.trim()});
         }
     
         // Reset the input value
         if (input) {
           input.value = '';
         }
+        
       }
     
-      remove(fruit: Fruit): void {
-        const index = this.fruits.indexOf(fruit);
+      remove(tag: Tag): void {
+        const index = this.tags.indexOf(tag);
     
         if (index >= 0) {
-          this.fruits.splice(index, 1);
+          this.tags.splice(index, 1);
         }
       }
-      */
+      
 
   ngOnInit(): void {
     this.planService.getCuisines().subscribe(
@@ -214,6 +197,121 @@ export class RecipeComponent implements OnInit {
     );
   }
 
-  onSubmit(){ }
+  
+
+  onSubmit(){ 
+    this.loadingService.isLoading = true;
+
+    const ingredient0: Ingredient = {};
+    const ingredient1: Ingredient = {};
+    const ingredient2: Ingredient = {};
+    const ingredient3: Ingredient = {};
+    const ingredient4: Ingredient = {};
+    const ingredient5: Ingredient = {};
+    const ingredient6: Ingredient = {};
+    const ingredient7: Ingredient = {};
+    const ingredient8: Ingredient = {};
+    const ingredient9: Ingredient = {};
+
+    if(this.ingredientForm.controls.ingredientName0.value.ingredientName){
+      ingredient0.ingredientName = this.ingredientForm.controls.ingredientName0.value.ingredientId;  
+      ingredient0.ingredientName = this.ingredientForm.controls.ingredientName0.value.ingredientName;  
+      ingredient0.unitMeasurement = this.ingredientForm.controls.ingredientUnit0.value;
+      ingredient0.quantity = this.ingredientForm.controls.ingredientQty0.value;
+      this.recipeIngredients.push(ingredient0);
+    }
+    
+    if(this.ingredientForm.controls.ingredientName1.value.ingredientName){
+      ingredient1.ingredientName = this.ingredientForm.controls.ingredientName1.value.ingredientId;  
+      ingredient1.ingredientName = this.ingredientForm.controls.ingredientName1.value.ingredientName;  
+      ingredient1.unitMeasurement = this.ingredientForm.controls.ingredientUnit1.value;
+      ingredient1.quantity = this.ingredientForm.controls.ingredientQty1.value;
+      this.recipeIngredients.push(ingredient1);
+    }
+
+    if(this.ingredientForm.controls.ingredientName2.value.ingredientName){
+      ingredient2.ingredientName = this.ingredientForm.controls.ingredientName2.value.ingredientId;  
+      ingredient2.ingredientName = this.ingredientForm.controls.ingredientName2.value.ingredientName;  
+      ingredient2.unitMeasurement = this.ingredientForm.controls.ingredientUnit2.value;
+      ingredient2.quantity = this.ingredientForm.controls.ingredientQty2.value;
+      this.recipeIngredients.push(ingredient2);
+    }
+
+    if(this.ingredientForm.controls.ingredientName3.value.ingredientName){
+      ingredient3.ingredientName = this.ingredientForm.controls.ingredientName3.value.ingredientId;  
+      ingredient3.ingredientName = this.ingredientForm.controls.ingredientName3.value.ingredientName;  
+      ingredient3.unitMeasurement = this.ingredientForm.controls.ingredientUnit3.value;
+      ingredient3.quantity = this.ingredientForm.controls.ingredientQty3.value;
+      this.recipeIngredients.push(ingredient3);
+    }
+
+    if(this.ingredientForm.controls.ingredientName4.value.ingredientName){
+      ingredient4.ingredientName = this.ingredientForm.controls.ingredientName4.value.ingredientId;  
+      ingredient4.ingredientName = this.ingredientForm.controls.ingredientName4.value.ingredientName;  
+      ingredient4.unitMeasurement = this.ingredientForm.controls.ingredientUnit4.value;
+      ingredient4.quantity = this.ingredientForm.controls.ingredientQty4.value;
+      this.recipeIngredients.push(ingredient4);
+    }
+
+    if(this.ingredientForm.controls.ingredientName5.value.ingredientName){
+      ingredient5.ingredientName = this.ingredientForm.controls.ingredientName5.value.ingredientId;  
+      ingredient5.ingredientName = this.ingredientForm.controls.ingredientName5.value.ingredientName;  
+      ingredient5.unitMeasurement = this.ingredientForm.controls.ingredientUnit5.value;
+      ingredient5.quantity = this.ingredientForm.controls.ingredientQty5.value;
+      this.recipeIngredients.push(ingredient5);
+    }
+
+    if(this.ingredientForm.controls.ingredientName6.value.ingredientName){
+      ingredient6.ingredientName = this.ingredientForm.controls.ingredientName6.value.ingredientId;  
+      ingredient6.ingredientName = this.ingredientForm.controls.ingredientName6.value.ingredientName;  
+      ingredient6.unitMeasurement = this.ingredientForm.controls.ingredientUnit6.value;
+      ingredient6.quantity = this.ingredientForm.controls.ingredientQty6.value;
+      this.recipeIngredients.push(ingredient6);
+    }
+
+    if(this.ingredientForm.controls.ingredientName7.value.ingredientName){
+      ingredient7.ingredientName = this.ingredientForm.controls.ingredientName7.value.ingredientId;  
+      ingredient7.ingredientName = this.ingredientForm.controls.ingredientName7.value.ingredientName;  
+      ingredient7.unitMeasurement = this.ingredientForm.controls.ingredientUnit7.value;
+      ingredient7.quantity = this.ingredientForm.controls.ingredientQty7.value;
+      this.recipeIngredients.push(ingredient7);
+    }
+
+    if(this.ingredientForm.controls.ingredientName8.value.ingredientName){
+      ingredient8.ingredientName = this.ingredientForm.controls.ingredientName8.value.ingredientId;  
+      ingredient8.ingredientName = this.ingredientForm.controls.ingredientName8.value.ingredientName;  
+      ingredient8.unitMeasurement = this.ingredientForm.controls.ingredientUnit8.value;
+      ingredient8.quantity = this.ingredientForm.controls.ingredientQty8.value;
+      this.recipeIngredients.push(ingredient8);
+    }
+
+    if(this.ingredientForm.controls.ingredientName9.value.ingredientName){
+      ingredient9.ingredientName = this.ingredientForm.controls.ingredientName9.value.ingredientId;  
+      ingredient9.ingredientName = this.ingredientForm.controls.ingredientName9.value.ingredientName;  
+      ingredient9.unitMeasurement = this.ingredientForm.controls.ingredientUnit9.value;
+      ingredient9.quantity = this.ingredientForm.controls.ingredientQty9.value;
+      this.recipeIngredients.push(ingredient9);
+    }
+
+    this.imageService.uploadRecipeImage(this.selectedFile.file).subscribe(
+      (res:any) => {
+        this.currentImage = res.imageUrl;
+        this.planService.addRecipe(this.recipeForm, this.recipeIngredients, this.currentImage, this.tags).subscribe(
+          (res:any) => {
+            this.recipeForm.reset();
+            this.router.navigate(["/plan"]).then(()=>{
+              this.planService.setTabIndex(2);
+            });
+          },
+          (err:any) => {
+            console.log(err);
+          });
+        this.loadingService.isLoading = false;
+      },
+      (err:any) => {
+        console.log(err);
+        this.loadingService.isLoading = false;
+    });
+  }
 
 }

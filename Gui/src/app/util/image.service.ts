@@ -25,4 +25,13 @@ export class ImageService {
     }
     return this.http.post(this.BaseUri+'/ingredient/'+0, formData);
   }
+
+  uploadRecipeImage(image: File, recipeId?: number){
+    const formData = new FormData();
+    formData.append('file', image);
+    if(recipeId){
+      return this.http.post(this.BaseUri+'/recipe/'+recipeId, formData);
+    }
+    return this.http.post(this.BaseUri+'/recipe/'+0, formData);
+  }
 }

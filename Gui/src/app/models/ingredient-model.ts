@@ -3,13 +3,13 @@ import { User } from "./user-model";
 export class Ingredient {
 
     ingredientId?: number;
-    ingredientName: string;
-    imageUrl: string;
-    quantity: number;
-    unitMeasurement: string;
-    warningLow: number;
-    note: string;
-    user: User;
+    ingredientName?: string;
+    imageUrl?: string;
+    quantity?: number;
+    unitMeasurement?: string;
+    warningLow?: number;
+    note?: string;
+    user?: User;
 
     constructor() {
         this.ingredientId = 0;

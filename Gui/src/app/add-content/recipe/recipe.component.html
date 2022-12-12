@@ -1,9 +1,8 @@
 <div class="container">
     <br>
-    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-        <div class="text-center mx-auto">
-          
+    <form [formGroup]="recipeForm">
 
+        <div class="text-center mx-auto">
           <div class="row">
             <div class="text-center col-8 mx-auto">
                 <label>
@@ -21,16 +20,9 @@
                     </label>
                 </div>  
             </div>
-
-
-        
-
             <br>
             <p class="h4">Add Recipe</p>
         </div>
-
-
-       
 
         <mat-card>
             <p class="h6">Basic Information</p>
@@ -40,7 +32,6 @@
             <input formControlName="name" matInput placeholder="Ex. Cinnamon Rolls">
           </mat-form-field>
 
-
           <mat-form-field class="col-12">
             <mat-label>Cuisine Type(s)</mat-label>
             <mat-select formControlName="cuisine" required>
@@ -49,7 +40,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
 
           <mat-form-field class="col-6">
             <mat-label>Prep Time</mat-label>
@@ -65,7 +55,6 @@
             </mat-select>
           </mat-form-field>
           
-
         <mat-form-field class="col-6">
             <mat-label>Cook Time</mat-label>
             <input formControlName="cookTime" matInput placeholder="Ex. 2.4">
@@ -79,7 +68,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
 
           <mat-form-field class="col-6">
             <mat-label>Temp</mat-label>
@@ -100,20 +88,10 @@
             <input formControlName="yield" matInput placeholder="Ex. 12 Rolls">
           </mat-form-field>
 
-
         </mat-card>
-
-     
-
         <br>
-
             <div class="row">
                <div class="col-12">
-
-
-
-
-             
                   <mat-accordion>
                       <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
@@ -122,16 +100,11 @@
                           </mat-panel-title>
                         </mat-expansion-panel-header>
                         
-
-                        
                         <ng-container formArrayName="ingredients">
                           <ng-container *ngFor="let ingredientForm of ingredients.controls; let i = index">
                           <div [formGroupName]="i">
 
                         <div class="row">
-
-                         
-                    
                         <mat-form-field class="col-5">
                           <mat-label>Ingredient</mat-label>
                           <mat-select formControlName="ingredientName{{i}}" required>
@@ -155,72 +128,47 @@
                           <input formControlName="ingredientQty{{i}}" matInput placeholder="Ex. 2.4">
                         </mat-form-field>
 
-            
-                          
-
                       </div>
-
-                      
-
                       </div>
                     </ng-container>
                   </ng-container>
 
-
                       <mat-divider></mat-divider>
-
                       <br>
-                      <button class="float-right" mat-raised-button color="primary" [disabled]="numOfIngredients > 9" (click)="addNewComponent()">New Ingredient</button>
+                      <button class="float-right" mat-raised-button color="primary" [disabled]="numOfIngredients > 9" (click)="addNewIngredient()">New Ingredient</button>
                       <br><br>
-
-
                       </mat-expansion-panel>
                   </mat-accordion>
-
                   <br>
+          
+        <mat-card>
+            <p class="h6">Instructions</p>
+            <mat-form-field class="col-12">
+              <mat-label>Instructions for recipe</mat-label>
+              <textarea formControlName="instructions" matInput placeholder="Ie: Cook for 12 hours at 225..."></textarea>
+            </mat-form-field>
+        </mat-card>
+      <br>
 
-
-                
-<mat-card>
-    <p class="h6">Steps</p>
-
-    <mat-list role="list">
-        <mat-form-field class="col-12">
-          <mat-label>Step 1</mat-label>
-          <input formControlName="step" matInput placeholder="Ex. 12 Rolls">
-        </mat-form-field>
-
-        <mat-list-item role="listitem">Item 2</mat-list-item>
-        <mat-list-item role="listitem">Item 3</mat-list-item>
-      </mat-list>
-
-</mat-card>
- 
-
-<br>
-
-<!-- 
-<mat-card>
+  <mat-card>
     <p class="h6">Additional Information</p>
 
     <mat-form-field class="col-12">
         <mat-label>Equipment required</mat-label>
-        <textarea matInput></textarea>
+        <textarea formControlName="equipment" matInput></textarea>
       </mat-form-field>
 
       <mat-form-field class="col-12">
         <mat-label>Notes</mat-label>
-        <textarea matInput></textarea>
+        <textarea formControlName="notes" matInput></textarea>
       </mat-form-field>
-
-
 
       <mat-form-field class="col-12">
         <mat-label>Tags</mat-label>
-        <mat-chip-list #chipList aria-label="Fruit selection">
-          <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
-                   [removable]="removable" (removed)="remove(fruit)">
-            {{fruit.name}}
+        <mat-chip-list #chipList aria-label="tag selection">
+          <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(tag)">
+            {{tag.name}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input placeholder="New tag..."
@@ -230,30 +178,14 @@
                  (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
       </mat-form-field>
-        
-  
- 
-
-</mat-card>
--->
-
-<br>
-
-
-
-
       
+    </mat-card>
+    <br>
+      <button class="float-right" mat-raised-button color="primary" (click)="onSubmit()">Save Recipe</button>
+      <br><br>
+        </div>
+    </div>
 
-
-                <br>
-                <button class="float-right" mat-raised-button color="primary">Save Recipe</button>
-                <br><br>
-
-
-               </div>
-            </div>
-
-
-             </form>
-           
+  </form>
+   <br><br><br><br><br>
 </div>

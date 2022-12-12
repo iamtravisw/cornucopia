@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../models/ingredient-model';
+import { Recipe } from '../models/recipe-model';
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,30 @@ export class PlanService {
 
   deleteIngredient(id: number) {
     return this.http.delete(this.BaseUri + '/api/ingredient/delete/'+id)
+  }
+
+  addRecipe(recipeForm: any, recipeIngredients: any, image: any, tags: any) {
+
+    const recipe: Recipe = {
+      name: recipeForm.value.name,
+      imageUrl: image,
+      cuisine: recipeForm.value.cuisine,
+      prepTime: recipeForm.value.prepTime,
+      prepTimeUnits: recipeForm.value.prepTimeUnits,
+      cookTime: recipeForm.value.cookTime,
+      cookTimeUnits: recipeForm.value.cookTimeUnits,
+      temp: recipeForm.value.temp,
+      tempUnits: recipeForm.value.tempUnits,
+      yield: recipeForm.value.yield,
+      ingredients: recipeIngredients,
+      instructions: recipeForm.value.instructions,
+      equipment: recipeForm.value.equipment,
+      notes: recipeForm.value.notes,
+      tags: tags,
+      user: {userId: this.userId} 
+    };
+    console.log(recipeIngredients);
+    return this.http.post(this.BaseUri + '/api/recipe/add', recipe)
   }
 
 }
